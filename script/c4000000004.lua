@@ -34,7 +34,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function s.filter(c)
-	return c:IsFaceup and c:IsSetCard(0x107b)
+	return c:IsFaceup() and c:IsSetCard(0x107b)
 end
 function s.ovfilter(c,tp,lc)
 	if Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil) then
