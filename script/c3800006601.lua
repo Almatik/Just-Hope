@@ -45,7 +45,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	if not re then return false end
-	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsSetCard(0x131)
+	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsSetCard(0x38a1)
 end
 function s.spfilter1(c,e,tp)
 	return c:IsSetCard(0x38a1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
