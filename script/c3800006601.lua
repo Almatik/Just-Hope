@@ -22,8 +22,8 @@ function s.initial_effect(c)
 	e2:SetCountLimit(1,id)
 	e2:SetCondition(s.spcon1)
 	e2:SetTarget(s.sptg1)
-	e1:SetOperation(s.spop1)
-	c:RegisterEffect(e1)
+	e2:SetOperation(s.spop1)
+	c:RegisterEffect(e2)
 end
 s.listed_series={0x38a1}
 
