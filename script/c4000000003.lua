@@ -31,8 +31,8 @@ end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
-	local tc1=g:GetFirst()
-	local tc2=g:GetNext()
+	local tc2=g:GetFirst()
+	local tc1=g:GetNext()
 	if tc1 and tc2 and tc1:IsFaceup() and tc2:IsFaceup() and tc1:IsRelateToEffect(e) and tc2:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
