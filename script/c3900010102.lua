@@ -1,4 +1,4 @@
---Karakura Student - Ichigo
+--Karakura Visitor - Rukia
 local s,id=GetID()
 function s.initial_effect(c)
 	--Extra Material
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.matop)
 	c:RegisterEffect(e1)
 end
-s.listed_names={id,BLEACH_ICHIGO}
+s.listed_names={id,BLEACH_RUKIA}
 s.listed_series={0x39a1}
 
 --Additional Material
@@ -77,7 +77,7 @@ function s.matcon(e,tp,eg,ep,ev,re,r,rp)
 		and rc:IsSetCard(0x39a1) and r&REASON_LINK~=0
 end
 function s.matfilter(c)
-	return c:IsSetCard(0x39a1) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x39a1) and c:IsType(TYPE_SPELL+TYPE_TRAP)
 		and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.mattg(e,tp,eg,ep,ev,re,r,rp,chk)
