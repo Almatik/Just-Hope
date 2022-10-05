@@ -44,6 +44,9 @@ end
 function s.equipop(c,e,tp,tc)
 	c:EquipByEffectAndLimitRegister(e,tp,tc,nil,true)
 end
+function s.lscon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
+end
 function s.lsfilter(c)
 	return c:IsSetCard(0x39a4) and c:IsMonster() and not c:IsForbidden()
 end
