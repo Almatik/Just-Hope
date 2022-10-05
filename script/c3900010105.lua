@@ -19,17 +19,17 @@ function s.initial_effect(c)
 		s.flagmap[c] = {}
 	end
 	--Material
-	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,1))
-	e1:SetCategory(CATEGORY_TOHAND)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCode(EVENT_BE_MATERIAL)
-	e1:SetCountLimit(1,id)
-	e1:SetCondition(s.matcon)
-	e1:SetTarget(s.mattg)
-	e1:SetOperation(s.matop)
-	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetCategory(CATEGORY_TOHAND)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
+	e2:SetCode(EVENT_BE_MATERIAL)
+	e2:SetCountLimit(1,id)
+	e2:SetCondition(s.matcon)
+	e2:SetTarget(s.mattg)
+	e2:SetOperation(s.matop)
+	c:RegisterEffect(e2)
 end
 s.listed_names={id,BLEACH_ISHIDA}
 s.listed_series={0x39a1}
