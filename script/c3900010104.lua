@@ -1,4 +1,4 @@
---Karakura Guard - Chad
+--Karakura Princess - Inoue
 local s,id=GetID()
 function s.initial_effect(c)
 	--Extra Material
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.matop)
 	c:RegisterEffect(e1)
 end
-s.listed_names={id,BLEACH_CHAD}
+s.listed_names={id,BLEACH_INOUE}
 s.listed_series={0x39a1}
 
 --Additional Material
@@ -81,12 +81,10 @@ function s.matfilter(c,e,tp)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(id)
 end
 function s.mattg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-			and Duel.IsExistingMatchingCard(s.matfilter,tp,LOCATION_HAND,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(s.matfilter,tp,LOCATION_HAND,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function s.matop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,s.matfilter,tp,LOCATION_HAND,0,1,1,nil)
 	if #g>0 then
