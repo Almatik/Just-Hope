@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.matop)
 	c:RegisterEffect(e1)
 end
-s.listed_names={id,BLEACH_ICHIGO}
+s.listed_names={id,BLEACH_KON}
 s.listed_series={0x39a1}
 
 --Additional Material
