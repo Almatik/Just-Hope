@@ -18,6 +18,7 @@ s.listed_series={0x38a1}
 
 function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
+end
 function s.spfilter1(c,e,tp)
 	return c:IsSetCard(0x38a1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP) and c::IsLevelBelow(2)
 end
