@@ -55,4 +55,3 @@ function s.sptg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	return c~=e:GetHandler() and (not c:IsMonster() or (c:IsType(TYPE_EFFECT) or (c:GetOriginalType()&TYPE_EFFECT)==TYPE_EFFECT)) and not c:IsSetCard(0x38a1)
 	end
 end
-end
