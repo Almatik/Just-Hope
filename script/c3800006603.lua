@@ -1,6 +1,9 @@
 --Sea Sharp- Sisters
 local s,id=GetID()
 function s.initial_effect(c)
+	--link summon
+	c:EnableReviveLimit()
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x38a1),2,2)
 	--Special summon when Link Summoned
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(0,{id,1}))
