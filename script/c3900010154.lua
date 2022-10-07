@@ -19,11 +19,11 @@ end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_GRAVE,0,nil,e,tp)
 	local ct
-	if g:GetFirst():IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+	if g:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
 		and g:GetClassCount(Card.GetCode)>=1 then ct=1 end
-	if g:GetFirst():IsAbleToHand()
+	if g:IsAbleToHand()
 		and g:GetClassCount(Card.GetCode)>=2 then ct=2 end
-	if g:GetFirst():IsAbletoDeck()
+	if g:IsAbletoDeck()
 		and g:GetClassCount(Card.GetCode)>=3 then ct=3 end
 	if chk==0 then return g:GetClassCount(Card.GetCode)>=ct end
 	local tg=aux.SelectUnselectGroup(g,e,tp,1,ct,aux.dncheck,1,tp,HINTMSG_SPSUMMON)
