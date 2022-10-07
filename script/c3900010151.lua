@@ -74,3 +74,21 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
 	end
 end
+function s.filter2(c)
+	return c:IsMonster() and c:IsAbleToDeck()
+end
+function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and s.filter2(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(s.filter2,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectTarget(tp,s.filter2,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
+end
+function s.op2(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		if Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)~=0 then
+			Duel.Draw(tp,1,REASON_EFFECT)
+		end
+	end
+end
