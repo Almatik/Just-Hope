@@ -59,11 +59,11 @@ end
 
 
 
-function s.confilter1(c)
+function s.confilter1(c,tp)
 	return c:IsFaceup() and c:IsSetCard(0x39a1) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
 end
 function s.con1(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.confilter1,1,nil)
+	return eg:IsExists(s.confilter1,1,nil,tp)
 end
 function s.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
@@ -81,11 +81,11 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
 	end
 end
-function s.confilter2(c)
+function s.confilter2(c,tp)
 	return c:IsFaceup() and c:IsSetCard(0x39a2) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
 end
 function s.con2(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.confilter2,1,nil)
+	return eg:IsExists(s.confilter2,1,nil,tp)
 end
 function s.filter2(c)
 	return c:IsMonster() and c:IsAbleToDeck()
