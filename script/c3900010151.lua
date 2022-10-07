@@ -20,7 +20,6 @@ function s.initial_effect(c)
 	e1:SetCondition(s.con1)
 	e1:SetTarget(s.tg1)
 	e1:SetOperation(s.op1)
-	e1:SetLabel()
 	c:RegisterEffect(e1)
 	--Shinigami
 	local e2=e1:Clone()
