@@ -13,11 +13,11 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 s.listed_series={0x39a1}
-function s.filter(c,e,tp)
+function s.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x39a1)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_GRAVE,0,nil,e,tp)
+	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_GRAVE,0,nil)
 	local ct
 	if g:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
 		and g:GetClassCount(Card.GetCode)>=1 then ct=1 end
