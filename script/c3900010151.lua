@@ -25,11 +25,11 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp)
 	if #g>0 then
-		if g:IsLocation(LOCATION_DECK) then
+		if g:GetFirst():IsLocation(LOCATION_DECK) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 			Duel.SendtoHand(g,nil,REASON_EFFECT)
 			Duel.ConfirmCards(1-tp,g)
-		elseif g:IsLocation(LOCATION_HAND) then
+		elseif g:GetFirst():IsLocation(LOCATION_HAND) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 			Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 		end
