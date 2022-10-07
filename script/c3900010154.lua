@@ -13,18 +13,26 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 s.listed_series={0x39a1}
-function s.filter(c)
+function s.filter1(c,e,tp)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x39a1)
+		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+end
+function s.filter2(c)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x39a1)
+		and c:IsAbleToHand()
+end
+function s.filter3(c)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x39a1)
+		and c:IsAbletoDeck()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_GRAVE,0,nil)
+	local g1=Duel.GetMatchingGroup(s.filter1,tp,LOCATION_GRAVE,0,nil,e,tp)
+	local g2=Duel.GetMatchingGroup(s.filter2,tp,LOCATION_GRAVE,0,nil)
+	local g3=Duel.GetMatchingGroup(s.filter3,tp,LOCATION_GRAVE,0,nil)
 	local ct
-	if g:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
-		and g:GetClassCount(Card.GetCode)>=1 then ct=1 end
-	if g:IsAbleToHand()
-		and g:GetClassCount(Card.GetCode)>=2 then ct=2 end
-	if g:IsAbletoDeck()
-		and g:GetClassCount(Card.GetCode)>=3 then ct=3 end
+	if g:GetClassCount(Card.GetCode)>=1 then ct=1 end
+	if g:GetClassCount(Card.GetCode)>=2 then ct=2 end
+	if g:GetClassCount(Card.GetCode)>=3 then ct=3 end
 	if chk==0 then return g:GetClassCount(Card.GetCode)>=ct end
 	local tg=aux.SelectUnselectGroup(g,e,tp,1,ct,aux.dncheck,1,tp,HINTMSG_SPSUMMON)
 	Duel.SetTargetCard(tg)
