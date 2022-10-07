@@ -17,21 +17,21 @@ function s.initial_effect(c)
 	e1:SetRange(LOCATION_FZONE)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetCountLimit(1)
-	e1:SetCondition(s.effcon)
+	e1:SetCondition(s.con1)
 	e1:SetTarget(s.tg1)
 	e1:SetOperation(s.op1)
-	e1:SetLabel(0x39a1)
+	e1:SetLabel()
 	c:RegisterEffect(e1)
 	--Shinigami
 	local e2=e1:Clone()
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
+	e2:SetCondition(s.con2)
 	e2:SetTarget(s.tg2)
 	e2:SetOperation(s.op2)
-	e2:SetLabel(0x39a2)
 	c:RegisterEffect(e2)
 end
-s.listed_names={0x39a1}
+s.listed_names={0x39a1,0x39a2}
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetPossibleOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
@@ -60,11 +60,11 @@ end
 
 
 
-function s.confilter(c,label)
-	return c:IsFaceup() and c:IsSetCard(label) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
+function s.confilter1(c)
+	return c:IsFaceup() and c:IsSetCard(0x39a1) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
 end
-function s.effcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.confilter,1,nil,e:GetLabel())
+function s.con1(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.confilter,1,nil)
 end
 function s.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
@@ -81,6 +81,12 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
 	end
+end
+function s.confilter2(c)
+	return c:IsFaceup() and c:IsSetCard(0x39a2) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
+end
+function s.con2(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.confilter,1,nil)
 end
 function s.filter2(c)
 	return c:IsMonster() and c:IsAbleToDeck()
