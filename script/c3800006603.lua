@@ -25,8 +25,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0x38a1}
 function s.slevel(e,c)
-	local lv=e:GetHandler():GetLevel()
-	return 2*65536+lv
+	return 2
 end
 
 function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
