@@ -20,14 +20,10 @@ function s.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_SYNCHRO_LEVEL)
-	e2:SetValue(s.slevel)
+	e2:SetValue(2)
 	c:RegisterEffect(e2)
 end
 s.listed_series={0x38a1}
-function s.slevel(e,c)
-	return 2
-end
-
 function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
