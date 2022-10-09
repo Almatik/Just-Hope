@@ -28,11 +28,11 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		if e:GetLabel()~=100 then return false end
 		e:SetLabel(0)
-		local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_DECK,0,nil)
+		local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil)
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 			and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,cg:GetClassCount(Card.GetCode))
 	end
-	local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_DECK,0,nil)
+	local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil)
 	local tg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_EXTRA,0,nil,e,tp,cg:GetClassCount(Card.GetCode))
 	local lvt={}
 	local tc=tg:GetFirst()
