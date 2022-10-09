@@ -29,7 +29,7 @@ s.listed_series={0x38a1}
 function s.cfilter(c)
 	return c:IsSetCard(0x38a1) and c:IsAbleToGraveAsCost() and c:IsMonster()
 end
-function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_DECK,0,1,1,nil)
