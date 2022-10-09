@@ -45,8 +45,8 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	if d and a:GetControler()~=d:GetControler() then
-		if a:IsControler(tp) then e:SetLabelObject(d)
-		else e:SetLabelObject(a) end
+		if a:IsControler(tp) then e:SetLabelObject(a)
+		else e:SetLabelObject(d) end
 		return true
 	else return false end
 end
@@ -55,7 +55,7 @@ function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc==tc end
 	if chk==0 then return tc:IsOnField() and tc:IsCanBeEffectTarget(e)
 		and tc:IsLinked() end
-	Duel.SetTargetCard(tc)
+	Duel.SetTargetCard(tc:GetBattleTarget())
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
