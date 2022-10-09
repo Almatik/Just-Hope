@@ -21,7 +21,7 @@ function s.cfilter(c)
 	return c:IsMonster() and c:IsSetCard(0x39a1) and c:IsAbleToGraveAsCost()
 end
 function s.spfilter(c,e,tp,lv)
-	return c:IsLink() and c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
