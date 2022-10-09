@@ -55,7 +55,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 		cg:Remove(Card.IsCode,nil,rg2:GetFirst():GetCode())
 		rg1:Merge(rg2)
 	end
-	Duel.SendtoGrave(rg1,REASON_COST)
+	Duel.SendtoGrave(rg1,REASON_COST+REASON_MATERIAL)
 	e:SetLabel(lv)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
