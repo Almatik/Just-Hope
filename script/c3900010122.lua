@@ -53,9 +53,10 @@ end
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tc=e:GetLabelObject()
 	if chkc then return chkc==tc end
-	if chk==0 then return tc:IsOnField() and tc:IsCanBeEffectTarget(e)
+	local bt=tc:GetBattleTarget()
+	if chk==0 then return tc:IsOnField() and bt:IsCanBeEffectTarget(e)
 		and tc:IsLinked() end
-	Duel.SetTargetCard(tc:GetBattleTarget())
+	Duel.SetTargetCard(bt)
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
