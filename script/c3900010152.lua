@@ -58,7 +58,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.SelectMatchingCard(tp,s.sfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv)
 	local tc=g:GetFirst()
 	tc:SetMaterial(rg1)
-	Duel.SendtoGrave(rg1,REASON_COST+REASON_MATERIAL)
+	Duel.SendtoGrave(rg1,REASON_COST+REASON_MATERIAL+REASON_LINK)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,tc,1,tp,LOCATION_EXTRA)
 end
 function s.sfilter(c,e,tp,lv)
