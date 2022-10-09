@@ -1,44 +1,72 @@
 --Karakura Team
 local s,id=GetID()
 function s.initial_effect(c)
-	--Activate
+	--Special summon 1 level 5 or lower fusion monster from extra deck
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_LINK_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
+	e1:SetCost(s.cost)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
 s.listed_series={0x39a1}
-function s.filter1(c,e,tp)
-	return c:IsSetCard(0x39a1)
-		and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c)
+function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	e:SetLabel(100)
+	return true
 end
-function s.filter2(c,e,tp,mc)
-	return c:IsSetCard(0x39a1) and mc:IsCanBeLinkMaterial(c,tp) and c:IsLinkMonster()  and Duel.GetLocationCountFromEx(tp,tp,mc,c)>0 
-		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_LINK,tp,false,false)
+function s.cfilter(c)
+	return c:IsMonster() and c:IsSetCard(0x39a1) and c:IsAbleToGraveAsCost()
 end
-function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_HAND+LOCATION_DECK) and s.filter1(chkc,e,tp) end
-	if chk==0 then return Duel.IsExistingTarget(s.filter1,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	local tc=Duel.SelectTarget(tp,s.filter1,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp)
-	Duel.ConfirmCards(1-tp,tc)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+function s.spfilter(c,e,tp,lv)
+	return c:IsLink() and c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if not tc or tc:IsFacedown() or not tc:IsRelateToEffect(e) or tc:IsControler(1-tp) or tc:IsImmuneToEffect(e) then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local sc=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tc):GetFirst()
-	if sc then
-		sc:SetMaterial(Group.FromCards(tc))
-		Duel.SendtoGrave(tc,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)
-		Duel.BreakEffect()
-		Duel.SpecialSummon(sc,SUMMON_TYPE_LINK,tp,tp,false,false,POS_FACEUP)
-		sc:CompleteProcedure()
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	if chk==0 then
+		if e:GetLabel()~=100 then return false end
+		e:SetLabel(0)
+		local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_DECK,0,nil)
+		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+			and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,cg:GetClassCount(Card.GetCode))
 	end
+	local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_DECK,0,nil)
+	local tg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_DECK,0,nil,e,tp,cg:GetClassCount(Card.GetCode))
+	local lvt={}
+	local tc=tg:GetFirst()
+	for tc in aux.Next(tg) do
+		local tlv=0
+		tlv=tlv+tc:GetLevel()
+		lvt[tlv]=tlv
+	end
+	local pc=1
+	for i=1,12 do
+		if lvt[i] then lvt[i]=nil lvt[pc]=i pc=pc+1 end
+	end
+	lvt[pc]=nil
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,2))
+	local lv=Duel.AnnounceNumber(tp,table.unpack(lvt))
+	local rg1=Group.CreateGroup()
+	for i=1,lv do
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+		local rg2=cg:Select(tp,1,1,nil)
+		cg:Remove(Card.IsCode,nil,rg2:GetFirst():GetCode())
+		rg1:Merge(rg2)
+	end
+	Duel.SendtoGrave(rg1,REASON_COST)
+	e:SetLabel(lv)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
+end
+function s.sfilter(c,e,tp,lv)
+	return c:IsRace(RACE_WARRIOR) and c:IsLevel(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+	local lv=e:GetLabel()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,s.sfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp,lv)
+	local tc=g:GetFirst()
+	if tc then Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP) end
 end
