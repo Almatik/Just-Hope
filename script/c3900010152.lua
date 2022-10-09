@@ -38,7 +38,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=tg:GetFirst()
 	for tc in aux.Next(tg) do
 		local tlv=0
-		tlv=tlv+tc:GetLevel()
+		tlv=tlv+tc:GetLink()
 		lvt[tlv]=tlv
 	end
 	local pc=1
