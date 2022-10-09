@@ -54,7 +54,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 	local tl=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv):GetFirst()
 	tl:SetMaterial(rg1)
-	Duel.SendtoGrave(rg1,REASON_MATERIAL+REASON_LINK)
+	Duel.SendtoGrave(rg1,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	if tl then Duel.SpecialSummon(tl,SUMMON_TYPE_LINK,tp,tp,false,false,POS_FACEUP) end
 end
