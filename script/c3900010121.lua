@@ -99,7 +99,7 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	local atk=#(tc:GetLinkedGroup():Filter(Card.IsMonster,nil))*500
+	local atk=tc:GetLinkedGroup():Filter(Card.IsFaceup,nil):GetSum(Card.GetBaseAttack)
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
