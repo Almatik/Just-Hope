@@ -55,18 +55,19 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 		cg:Remove(Card.IsCode,nil,rg2:GetFirst():GetCode())
 		rg1:Merge(rg2)
 	end
-	local g=Duel.SelectMatchingCard(tp,s.sfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv)
-	local tc=g:GetFirst()
-	tc:SetMaterial(rg1)
+	c:SetMaterial(g)
 	Duel.SendtoGrave(rg1,REASON_COST)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,tc,1,tp,LOCATION_EXTRA)
+	e:SetLabel(lv)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function s.sfilter(c,e,tp,lv)
 	return c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local tc=Duel.GetFirstTarget()
+	local lv=e:GetLabel()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,s.sfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv)
+	local tc=g:GetFirst()
 	if tc then Duel.SpecialSummon(tc,SUMMON_TYPE_LINK,tp,tp,false,false,POS_FACEUP) end
 end
