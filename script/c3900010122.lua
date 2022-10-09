@@ -45,8 +45,8 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	if d and a:GetControler()~=d:GetControler() then
-		if a:IsControler(tp) then e:SetLabelObject(a)
-		else e:SetLabelObject(d) end
+		if a:IsControler(tp) then e:SetLabelObject(d)
+		else e:SetLabelObject(a) end
 		return true
 	else return false end
 end
@@ -61,18 +61,17 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	local bt=tc:GetBattleTarget()
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_DISABLE)
 		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		bc:RegisterEffect(e1)
+		tc:RegisterEffect(e1)
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_DISABLE_EFFECT)
 		e2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		bc:RegisterEffect(e2)
+		tc:RegisterEffect(e2)
 	end
 end
 
