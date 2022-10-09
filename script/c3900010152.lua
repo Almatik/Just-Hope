@@ -13,10 +13,10 @@ function s.initial_effect(c)
 end
 s.listed_series={0x39a1}
 function s.cfilter(c)
-	return c:IsMonster() and c:IsSetCard(0x39a1) and c:IsAbleToGrave()
+	return c:IsMonster() and c:IsSetCard(0x39a1) and c:IsAbleToGrave() and c:IsCanBeLinkMaterial()
 end
 function s.spfilter(c,e,tp,lv)
-	return c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_LINK,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
