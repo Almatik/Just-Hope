@@ -37,7 +37,7 @@ end
 function s.tkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tkcostfilter,tp,LOCATION_DECK,0,1,e:GetHandler()) 
 		end
-	Duel.SendtoGrave(tp,s.tkcostfilter,1,1,REASON_COST,e:GetHandler())
+	Duel.SendtoGrave(s.tkcostfilter,1,1,REASON_COST,e:GetHandler())
 end
 function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -50,7 +50,7 @@ end
 function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if s.tktg(e,tp,eg,ep,ev,re,r,rp,0) then
 		local c=e:GetHandler()
-		local token=Duel.CreateToken(tp,3800006604)
+		local token=Duel.CreateToken(tp,3800006604,0x38a1,TYPES_TOKEN+TYPE_TUNER,0,0,1,RACE_SEASERPENT,ATTRIBUTE_WATER)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 	end
 	Duel.SpecialSummonComplete()
