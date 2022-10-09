@@ -16,6 +16,18 @@ function s.initial_effect(c)
 	e1:SetOperation(s.lsop)
 	c:RegisterEffect(e1)
 	aux.AddEREquipLimit(c,nil,s.eqval,s.equipop,e1)
+	--ATK
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_ATKCHANGE)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_BATTLE_START)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e2:SetCountLimit(1)
+	e2:SetCondition(s.atkcon)
+	e2:SetTarget(s.atktg)
+	e2:SetOperation(s.atkop)
+	c:RegisterEffect(e2)
 	--Special Summon this card
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,0))
@@ -63,6 +75,38 @@ function s.lsop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	if tc then
 		s.equipop(c,e,tp,tc)
+	end
+end
+
+--ATK
+function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+	if d and a:GetControler()~=d:GetControler() then
+		if a:IsControler(tp) then e:SetLabelObject(a)
+		else e:SetLabelObject(d) end
+		return true
+	else return false end
+end
+function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local tc=e:GetLabelObject()
+	if chkc then return chkc==tc end
+	if chk==0 then return tc:IsOnField() and tc:IsCanBeEffectTarget(e)
+		and tc:IsLinked() end
+	Duel.SetTargetCard(tc)
+end
+function s.atkop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
+	local tc=Duel.GetFirstTarget()
+	local atk=#(tc:GetLinkedGroup():Filter(Card.IsMonster,nil))*500
+	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(atk)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
+		tc:RegisterEffect(e1)
 	end
 end
 
