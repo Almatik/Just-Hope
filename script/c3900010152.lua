@@ -28,11 +28,11 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		if e:GetLabel()~=100 then return false end
 		e:SetLabel(0)
-		local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil)
+		local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_DECK,0,nil)
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 			and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,cg:GetClassCount(Card.GetCode))
 	end
-	local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil)
+	local cg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_DECK,0,nil)
 	local tg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_EXTRA,0,nil,e,tp,cg:GetClassCount(Card.GetCode))
 	local lvt={}
 	local tc=tg:GetFirst()
@@ -55,18 +55,17 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 		cg:Remove(Card.IsCode,nil,rg2:GetFirst():GetCode())
 		rg1:Merge(rg2)
 	end
-	local tc=Duel.SelectTarget(tp,s.sfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv)
-	tc:SetMaterial(rg1)
 	Duel.SendtoGrave(rg1,REASON_COST+REASON_MATERIAL+REASON_LINK)
-	rg1:DeleteGroup()
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,tc,1,tp,LOCATION_EXTRA)
+	e:SetLabel(lv)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function s.sfilter(c,e,tp,lv)
 	return c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local tc=Duel.GetFirstTarget()
+	local lv=e:GetLabel()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local tc=Duel.SelectMatchingCard(tp,s.sfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv):GetFirst()
 	if tc then Duel.SpecialSummon(tc,SUMMON_TYPE_LINK,tp,tp,false,false,POS_FACEUP) end
 end
