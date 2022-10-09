@@ -60,7 +60,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function s.sfilter(c,e,tp,lv)
-	return c:IsRace(RACE_WARRIOR) and c:IsLevel(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLink() and c:IsSetCard(0x39a1) and c:IsLinkBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
