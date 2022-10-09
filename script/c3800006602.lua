@@ -43,7 +43,7 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0 
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,3800006604,0x38a1,TYPES_TOKEN+TYPES_TUNER,0,0,1,RACE_SEASERPENT,ATTRIBUTE_WATER) then
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,3800006604,0x38a1,TYPE_TOKEN+TYPE_TUNER,0,0,1,RACE_SEASERPENT,ATTRIBUTE_WATER) then
 		local token=Duel.CreateToken(tp,3800006604)
 		Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP)
 	end
