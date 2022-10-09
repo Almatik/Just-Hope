@@ -48,9 +48,7 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	if tc:IsRelateToEffect(e) then
-		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
-	end
+	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 end
 
 --Special Summon from GY
