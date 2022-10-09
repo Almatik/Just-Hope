@@ -5,10 +5,21 @@ function s.initial_effect(c)
 	Link.AddProcedure(c,nil,2,2,s.lcheck)
 	c:EnableReviveLimit()
 	--Link Summoned
-
+	--remove
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetCategory(CATEGORY_REMOVE)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetCode(EVENT_BATTLE_DESTROYED)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetCountLimit(1)
+	e2:SetCondition(s.condition)
+	e2:SetOperation(s.operation)
+	c:RegisterEffect(e2)
 	--Special Summon this card
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TODECK)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -28,6 +39,17 @@ end
 
 --Link Summoned
 
+--Remove
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
+	local bc=tc:GetBattleTarget()
+	return not tc:IsPreviousControler(tp)
+		and bc:IsControler(tp) and bc:IsLinked()
+end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
+	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
+end
 
 --Special Summon from GY
 function s.spfilter(c,e,tp,sc)
