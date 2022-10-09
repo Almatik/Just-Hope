@@ -59,6 +59,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=g:GetFirst()
 	tc:SetMaterial(rg1)
 	Duel.SendtoGrave(rg1,REASON_COST+REASON_MATERIAL+REASON_LINK)
+	rg1:DeleteGroup()
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,tc,1,tp,LOCATION_EXTRA)
 end
 function s.sfilter(c,e,tp,lv)
