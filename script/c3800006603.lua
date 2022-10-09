@@ -20,10 +20,17 @@ function s.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_SYNCHRO_LEVEL)
-	e2:SetValue(2)
+	e2:SetValue(s.synclv)
 	c:RegisterEffect(e2)
 end
 s.listed_series={0x38a1}
+function s.synclv(e,c,rc)
+	if rc:IsSetCard(0x38a1) then
+		return 2
+	else
+		return false
+	end
+end
 function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
