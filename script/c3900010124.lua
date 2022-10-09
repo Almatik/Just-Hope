@@ -42,7 +42,7 @@ end
 
 --Negate activation
 function s.tfilter(c,tp)
-	return c:IsOnField() and c:IsControler(tp) and c:IsLinked()
+	return c:IsOnField() and c:IsControler(tp) and c:IsLinked() and c:IsMonster()
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	if rp==tp or e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
