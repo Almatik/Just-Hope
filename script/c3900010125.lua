@@ -15,7 +15,6 @@ function s.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
 	e2:SetCondition(s.condition)
-	e2:SetTarget(s.target)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 	--Special Summon this card
@@ -46,10 +45,6 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	local bc=tc:GetBattleTarget()
 	return not tc:IsPreviousControler(tp)
 		and bc:IsControler(tp) and bc:IsLinked()
-end
-function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	local tc=eg:GetFirst()
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,tc,1,0,0)
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
