@@ -65,6 +65,7 @@ function s.ChooseDeck(tp)
 	for i=1,#s.DeckList do
 		table.insert(decklist,s.DeckList[i][1])
 	end
+	local confirm
 	local deckid
 	local decknum
 	local deck
@@ -77,7 +78,8 @@ function s.ChooseDeck(tp)
 		local extra=s.DeckList[decknum][3]
 		for _,v in ipairs(extra) do table.insert(deck,v) end
 		Duel.SelectCardsFromCodes(tp,0,1,false,false,table.unpack(deck))
-	until Duel.SelectYesNo(tp,aux.Stringid(id,4))~=0
+		local confirm=Duel.SelectYesNo(tp,aux.Stringid(id,4))
+	until confirm~=0
 	for code,code2 in ipairs(deck) do
 		--Debug.AddCard(code2,tp,tp,LOCATION_DECK,1,POS_FACEDOWN):Cover(deckid)
 		local tc=Duel.CreateToken(tp,code2)
