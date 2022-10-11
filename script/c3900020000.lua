@@ -65,23 +65,27 @@ function s.ChooseDeck(tp)
 	for i=1,#s.DeckList do
 		table.insert(decklist,s.DeckList[i][1])
 	end
-	local deckid=Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(decklist))
-	local decknum=deckid-id-100
-	--Add Random Deck
-	local deck=s.DeckList[decknum][2]
-	local extra=s.DeckList[decknum][3]
-	for _,v in ipairs(extra) do table.insert(deck,v) end
-	Duel.SelectCardsFromCodes(tp,0,1,false,false,table.unpack(deck))
+	local deckid
+	local decknum
+	local deck
+	local extra
+	repeat
+		local deckid=Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(decklist))
+		local decknum=deckid-id-100
+		--Add Random Deck
+		local deck=s.DeckList[decknum][2]
+		local extra=s.DeckList[decknum][3]
+		for _,v in ipairs(extra) do table.insert(deck,v) end
+		Duel.SelectCardsFromCodes(tp,0,1,false,false,table.unpack(deck))
+	until Duel.SelectYesNo(tp,aux.Stringid(id,4))~=0
 	for code,code2 in ipairs(deck) do
 		--Debug.AddCard(code2,tp,tp,LOCATION_DECK,1,POS_FACEDOWN):Cover(deckid)
 		local tc=Duel.CreateToken(tp,code2)
 		tc:Cover(deckid)
 		Duel.SendtoDeck(tc,tp,1,REASON_RULE)
 	end
-	--Debug.ReloadFieldEnd()
-	local g=Duel.GetFieldGroup(tp,LOCATION_EXTRA+LOCATION_HAND+LOCATION_DECK,0)
-	Duel.ConfirmCards(tp,g)
 	Duel.ShuffleDeck(tp)
+	--Debug.ReloadFieldEnd()
 	--Duel.ShuffleExtra(tp)
 end
 
