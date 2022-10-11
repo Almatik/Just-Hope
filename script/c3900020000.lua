@@ -72,7 +72,7 @@ function s.ChooseDeck(tp)
 		local ip=deckid-id-200
 		for i=1,#s.DeckList[ip][2] do table.insert(chosendeck,s.DeckList[ip][2]) end
 		for i=1,#s.DeckList[ip][3] do table.insert(chosendeck,s.DeckList[ip][3]) end
-		local Duel.SelectCardsFromCodes(tp,0,0,false,false,table.unpack(chosendeck))
+		Duel.SelectCardsFromCodes(tp,0,0,false,false,table.unpack(chosendeck))
 		local sel2={}
 		table.insert(sel2,aux.Stringid(id,4))
 		table.insert(sel2,aux.Stringid(id,5))
