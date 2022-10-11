@@ -66,8 +66,7 @@ function s.ChooseDeck(tp)
 		table.insert(decklist,s.DeckList[i][1])
 	end
 	local deckid=Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(decklist))
-	local mathid=selop*100
-	local decknum=deckid-id-mathid
+	local decknum=deckid-id-200
 	--Add Random Deck
 	local deck=s.DeckList[decknum][2]
 	local extra=s.DeckList[decknum][3]
