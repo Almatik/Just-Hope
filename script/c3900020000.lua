@@ -65,22 +65,10 @@ function s.ChooseDeck(tp)
 	for i=1,#s.DeckList do
 		table.insert(decklist,s.DeckList[i][1])
 	end
-	local selop2
-	repeat
-		local deckid=Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(decklist))
-		local chosendeck={}
-		local ip=deckid-id-200
-		for i=1,#s.DeckList[ip][2] do table.insert(chosendeck,s.DeckList[ip][2]) end
-		for i=1,#s.DeckList[ip][3] do table.insert(chosendeck,s.DeckList[ip][3]) end
-		Duel.SelectCardsFromCodes(tp,0,0,false,false,table.unpack(chosendeck))
-		local sel2={}
-		table.insert(sel2,aux.Stringid(id,4))
-		table.insert(sel2,aux.Stringid(id,5))
-		local selop2=Duel.SelectOption(tp,false,table.unpack(sel2))
-	until selop2==0
+	local deckid=Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(decklist))
+	local decknum=deckid-id-200
 
 	--Add Deck
-	local decknum=deckid-id-200
 	local deck=s.DeckList[decknum][2]
 	local extra=s.DeckList[decknum][3]
 	for _,v in ipairs(extra) do table.insert(deck,v) end
