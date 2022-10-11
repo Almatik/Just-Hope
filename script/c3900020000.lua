@@ -67,6 +67,9 @@ function s.ChooseDeck(tp)
 	end
 	local deckid=Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(decklist))
 	local decknum=deckid-id-200
+	local chosenlist={}
+	for i=1,#s.DeckList[decknum][2] do table.insert(chosenlist,s.DeckList[decknum][2]) end
+	Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(chosenlist))
 
 	--Add Deck
 	local deck=s.DeckList[decknum][2]
