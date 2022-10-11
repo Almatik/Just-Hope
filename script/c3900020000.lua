@@ -73,10 +73,10 @@ function s.ChooseDeck(tp)
 	for _,v in ipairs(extra) do table.insert(deck,v) end
 	Duel.SelectCardsFromCodes(tp,1,1,false,false,table.unpack(deck))
 	for code,code2 in ipairs(deck) do
-		--Debug.AddCard(code2,tp,tp,LOCATION_DECK,1,POS_FACEDOWN):Cover(deckid)
-		local tc=Duel.CreateToken(tp,code2)
-		tc:Cover(deckid)
-		Duel.SendtoDeck(tc,tp,1,REASON_RULE)
+		Debug.AddCard(code2,tp,tp,LOCATION_DECK,1,POS_FACEDOWN)
+		--local tc=Duel.CreateToken(tp,code2)
+		--tc:Cover(deckid)
+		--Duel.SendtoDeck(tc,tp,1,REASON_RULE)
 	end
 	Duel.ShuffleDeck(tp)
 	--Debug.ReloadFieldEnd()
