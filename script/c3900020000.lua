@@ -92,11 +92,11 @@ end
 
 
 
-function s.RelayDeck(tp,startlp)
+function s.RelayDeck(tp,startlp,selop)
 	local e1=Effect.GlobalEffect()
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_ADJUST)
-	e1:SetOperation(s.RelayOp(startlp))
+	e1:SetOperation(s.RelayOp(startlp,selop))
 	Duel.RegisterEffect(e1,tp)
 	local e2=e1:Clone()
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
