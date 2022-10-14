@@ -47,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(me2)
 end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	if c:IsSetCard(0x9e) then return false end
+	if c:IsSetCard(0x8e) then return false end
 	return (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 
