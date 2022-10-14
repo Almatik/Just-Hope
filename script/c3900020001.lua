@@ -18,17 +18,27 @@ function s.initial_effect(c)
 	me1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	me1:SetType(EFFECT_TYPE_SINGLE)
 	me1:SetCode(EFFECT_SPSUMMON_CONDITION)
-	me1:SetValue(s.spcon)
+	me1:SetValue(s.condition)
 	c:RegisterEffect(me1)
-	--Monster: Normal Summon
-	--spsummon
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,{id,2})
-	e1:SetOperation(s.operation)
-	c:RegisterEffect(e1)
+	--Monster: Special Summon this card
+	local me2=Effect.CreateEffect(c)
+	me2:SetType(EFFECT_TYPE_FIELD)
+	me2:SetCode(EFFECT_SPSUMMON_PROC)
+	me2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	me2:SetRange(LOCATION_EXTRA+LOCATION_HAND)
+	me2:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
+	me2:SetCondition(s.spcon)
+	me2:SetTarget(s.sptg)
+	me2:SetOperation(s.spop)
+	c:RegisterEffect(me2)
+	--Monster: Special Summoned
+	local me3=Effect.CreateEffect(c)
+	me3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	me3:SetCode(EVENT_SPSUMMON_SUCCESS)
+	me3:SetProperty(EFFECT_FLAG_DELAY)
+	me3:SetCountLimit(1,{id,2})
+	me3:SetOperation(s.operation)
+	c:RegisterEffect(me3)
 end
 function s.penfilter(c)
 	return c:IsSetCard(0x8e) and c:IsMonster() and (c:IsAbleToHand() or c:IsAbleToGrave()) and not c:IsCode(id)
@@ -43,9 +53,41 @@ function s.penoperation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 
-function s.spcon(e)
+function s.condition(e)
 	local c=e:GetHandler()
 	return c:IsLocation(LOCATION_EXTRA) and c:IsLocation(LOCATION_HAND)
+end
+
+
+function s.spfilter(c,ft)
+	return c:IsRace(RACE_ZOMBIE) and c:IsAbleToRemoveAsCost() and (ft>0 or c:GetSequence()<5)
+end
+function s.spcon(e,tp,eg,ep,ev,re,r,rp,c)
+	local c=e:GetHandler()
+	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,Duel.GetLocationCount(tp,LOCATION_MZONE))
+	local num=1
+	if c:IsLocation(LOCATION_EXTRA) then num=2 end
+	return ft>-1 and #rg>0 and aux.SelectUnselectGroup(rg,e,tp,num,num,nil,0)
+end
+function s.sptg(e,tp,eg,ep,ev,re,r,rp,c)
+	local c=e:GetHandler()
+	local g=nil
+	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,Duel.GetLocationCount(tp,LOCATION_MZONE))
+	local num=1
+	if c:IsLocation(LOCATION_EXTRA) then num=2 end
+	local g=aux.SelectUnselectGroup(rg,e,tp,num,num,nil,1,tp,HINTMSG_REMOVE,nil,nil,true)
+	if #g>0 then
+		g:KeepAlive()
+		e:SetLabelObject(g)
+		return true
+	end
+	return false
+end
+function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
+	local g=e:GetLabelObject()
+	if not g then return end
+	Duel.Remove(g,POS_FACEUP,REASON_COST)
+	g:DeleteGroup()
 end
 
 
