@@ -10,6 +10,7 @@ function s.initial_effect(c)
 	pe1:SetType(EFFECT_TYPE_IGNITION)
 	pe1:SetCountLimit(1,{id,1})
 	pe1:SetRange(LOCATION_PZONE)
+	pe1:SetCost(s.pencost)
 	pe1:SetTarget(s.pentarget)
 	pe1:SetOperation(s.penoperation)
 	c:RegisterEffect(pe1)
@@ -41,6 +42,10 @@ function s.initial_effect(c)
 	me3:SetCountLimit(1,{id,2})
 	me3:SetOperation(s.operation)
 	c:RegisterEffect(me3)
+end
+function s.pencost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.CheckLPCost(tp,500) end
+	Duel.PayLPCost(tp,500)
 end
 function s.penfilter(c)
 	return c:IsSetCard(0x8e) and c:IsMonster() and (c:IsAbleToHand() or c:IsAbleToGrave()) and not c:IsCode(id)
