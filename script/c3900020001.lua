@@ -100,6 +100,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 	table.insert(sel,aux.Stringid(id,1))
 	table.insert(sel,aux.Stringid(id,2))
 	--Choose Effect
+	local selop
 	if c:IsPreviousLocation(LOCATION_HAND) then
 		local selop=Duel.SelectOption(tp,false,table.unpack(sel))
 	elseif c:IsPreviousLocation(LOCATION_EXTRA) then
