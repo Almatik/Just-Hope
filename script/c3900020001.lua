@@ -1,6 +1,8 @@
 --Blue-Blooded Vampire
 local s,id=GetID()
 function s.initial_effect(c)
+	--Pendulum Summon
+	Pendulum.AddProcedure(c)
 	--Pendulum: Search or send to GY
 	local pe1=Effect.CreateEffect(c)
 	pe1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_TOGRAVE)
