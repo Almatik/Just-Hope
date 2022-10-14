@@ -62,8 +62,9 @@ end
 function s.spfilter(c,ft)
 	return c:IsRace(RACE_ZOMBIE) and c:IsAbleToRemoveAsCost() and (ft>0 or c:GetSequence()<5)
 end
-function s.spcon(e,tp,eg,ep,ev,re,r,rp,c)
-	local c=e:GetHandler()
+function s.spcon(e,c)
+	if c==nil then return true end
+	local tp=c:GetControler()
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,ft)
 	local num=1
