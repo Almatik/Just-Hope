@@ -64,7 +64,8 @@ function s.spfilter(c,ft)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp,c)
 	local c=e:GetHandler()
-	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,Duel.GetLocationCount(tp,LOCATION_MZONE))
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,ft)
 	local num=1
 	if c:IsLocation(LOCATION_EXTRA) then num=2 end
 	return ft>-1 and #rg>0 and aux.SelectUnselectGroup(rg,e,tp,num,num,nil,0)
@@ -72,7 +73,8 @@ end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,c)
 	local c=e:GetHandler()
 	local g=nil
-	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,Duel.GetLocationCount(tp,LOCATION_MZONE))
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	local rg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,ft)
 	local num=1
 	if c:IsLocation(LOCATION_EXTRA) then num=2 end
 	local g=aux.SelectUnselectGroup(rg,e,tp,num,num,nil,1,tp,HINTMSG_REMOVE,nil,nil,true)
