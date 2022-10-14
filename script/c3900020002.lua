@@ -122,7 +122,7 @@ end
 function s.thfilter(c)
 	return c:IsLevelBelow(5) and c:IsSetCard(0x8e) and c:IsType(TYPE_MONSTER)
 		and (c:IsType(TYPE_PENDULUN)
-			or (not c:IsType(TYPE_PENDULUM) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false))))
+			or (not c:IsType(TYPE_PENDULUM) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
