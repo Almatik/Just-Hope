@@ -102,9 +102,9 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 	--Choose Effect
 	local selop
 	if c:IsPreviousLocation(LOCATION_HAND) then
-		local selop=Duel.SelectOption(tp,false,table.unpack(sel))
+		selop=Duel.SelectOption(tp,false,table.unpack(sel))
 	elseif c:IsPreviousLocation(LOCATION_EXTRA) then
-		local selop=2
+		selop=2
 	end
 	--Apply Effect
 	if selop==0 or selop==2 then
