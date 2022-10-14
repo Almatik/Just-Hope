@@ -121,7 +121,7 @@ end
 
 function s.thfilter(c,e,tp)
 	return c:IsLevelBelow(5) and c:IsSetCard(0x8e) and c:IsType(TYPE_MONSTER)
-		and (c:IsType(TYPE_PENDULUN) and Duel.CheckLocation(tp,LOCATION_PZONE,0) and Duel.CheckLocation(tp,LOCATION_PZONE,1))
+		and ((c:IsType(TYPE_PENDULUN) and Duel.CheckLocation(tp,LOCATION_PZONE,0) and Duel.CheckLocation(tp,LOCATION_PZONE,1))
 			or 
 			(Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
 end
