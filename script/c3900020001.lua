@@ -74,7 +74,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	if selop==1 or selop==2 then
 		local e2=Effect.CreateEffect(c)
-		e2:SetDescription(aux.Stringid(id,1))
+		e2:SetDescription(aux.Stringid(id,2))
 		e2:SetType(EFFECT_TYPE_FIELD)
 		e2:SetCode(EFFECT_SUMMON_PROC)
 		e2:SetRange(LOCATION_MZONE)
