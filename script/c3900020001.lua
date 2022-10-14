@@ -43,6 +43,8 @@ function s.initial_effect(c)
 	me3:SetOperation(s.operation)
 	c:RegisterEffect(me3)
 end
+s.listed_series={0x8e}
+s.listed_names={id}
 function s.pencost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,500) end
 	Duel.PayLPCost(tp,500)
