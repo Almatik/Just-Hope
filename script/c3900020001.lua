@@ -112,7 +112,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp,chk)
 		e1:SetRange(LOCATION_MZONE)
 		e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
 		e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
-		e1:SetDescription(aux.Stringid(id,1))
+		e1:SetDescription(1)
 		e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x8e))
 		c:RegisterEffect(e1)
 	end
