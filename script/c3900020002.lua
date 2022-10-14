@@ -57,7 +57,7 @@ function s.pencost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,500) end
 	Duel.PayLPCost(tp,500)
 end
-function s.penfilter(c,ps)
+function s.penfilter(c,pc)
 	return c:GetLeftScale()<pc:GetLeftScale()
 end
 function s.pentg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
