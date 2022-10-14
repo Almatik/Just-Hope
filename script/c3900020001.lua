@@ -14,8 +14,6 @@ function s.initial_effect(c)
 	pe1:SetTarget(s.pentarget)
 	pe1:SetOperation(s.penoperation)
 	c:RegisterEffect(pe1)
-	--Cannot Normal Summon/Set
-	c:EnableUnsummonable()
 	--Monster: Cannot SP Summon
 	local me1=Effect.CreateEffect(c)
 	me1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
