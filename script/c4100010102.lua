@@ -17,7 +17,7 @@ function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
-	return DuelLinks.IsTurnPlayer(tp)
+	return Duel.GetTurnPlayer()==tp
 		and Duel.GetFlagEffect(tp,id)~=0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
