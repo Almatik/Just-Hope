@@ -24,7 +24,7 @@ function DuelLinks.AddProcedure(c,skillcon,skillop)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.Place,
+	e1:SetOperation(DuelLinks.Place(),
 					DuelLinks.SkillOp(skillcon,skillop,1,EVENT_PREDRAW))
 	c:RegisterEffect(e1)
 end
