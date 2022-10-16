@@ -76,7 +76,7 @@ function DuelLinks.Place(skillcon,skillop)
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 		if skillcon~=nil and skillcon==true then
-			skillop
+			return skillop
 		end
 	end
 end
