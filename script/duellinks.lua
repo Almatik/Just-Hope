@@ -33,7 +33,7 @@ function DuelLinks.StartUp(c,skillcon,skillop)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_STARTUP)
 	e2:SetRange(0x5f)
-	e2:SetOperation(DuelLinks.SkillOp(skillcon,skillop))
+	e2:SetOperation(DuelLinks.SkillOp(skillcon,skillop,1,EVENT_STARTUP))
 	c:RegisterEffect(e2)
 end
 function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
@@ -84,9 +84,7 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 		if skillop~=nil then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-			if setcode~=nil then
-				e1:SetCode(setcode)
-			end
+			e1:SetCode(setcode)
 			if type(countlimit)=="number" then
 				e1:SetCountLimit(countlimit)
 			end
@@ -96,8 +94,6 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 			e1:SetOperation(skillop)
 			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
 		end
-	local tc=Duel.CreateToken(tp,24874630)
-	Duel.SendtoDeck(tc,tp,2,REASON_RULE)
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 	end
