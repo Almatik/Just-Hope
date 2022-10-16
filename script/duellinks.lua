@@ -24,7 +24,7 @@ function DuelLinks.AddProcedure(c,skillcon,skillop,countlimit)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.Place(skillcon,skillop,countlimit))
+	e1:SetOperation(DuelLinks.Place(skillcon,skillop))
 	c:RegisterEffect(e1)
 end
 function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
@@ -76,7 +76,7 @@ function DuelLinks.Place(skillcon,skillop)
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 		if skillcon~=nil and skillcon==true then
-			return skillop
+			skillop
 		end
 	end
 end
