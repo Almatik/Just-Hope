@@ -34,7 +34,7 @@ function DuelLinks.AddProcedure2(c)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
 	e1:SetOperation(DuelLinks.Place())
-	Duel.RegisterEffect(e1,c:GetHandlerPlayer())
+	Duel.RegisterEffect(e1,0)
 end
 function DuelLinks.StartUp(c,skillcon,skillop)
 	local e1=Effect.CreateEffect(c) 
