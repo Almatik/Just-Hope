@@ -114,22 +114,25 @@ end
 
 -- Phase Functions
 function DuelLinks.IsDrawPhase()
-	local phase=Duel.GetCurrentPhase()
-	return phase==PHASE_DRAW
+	return Duel.GetCurrentPhase()==PHASE_DRAW
 end
 function DuelLinks.IsStandbyPhase()
-	local phase=Duel.GetCurrentPhase()
-	return phase==PHASE_STANDBY
+	return Duel.GetCurrentPhase()==PHASE_STANDBY
 end
 function DuelLinks.IsMainPhase()
-	local phase=Duel.GetCurrentPhase()
-	return phase==phase==PHASE_MAIN1 or phase==PHASE_MAIN2
+	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function DuelLinks.IsBattlePhase()
-	local phase=Duel.GetCurrentPhase()
-	return phase>=PHASE_BATTLE_START and phase<=PHASE_BATTLE
+	return Duel.GetCurrentPhase()>=PHASE_BATTLE_START and Duel.GetCurrentPhase()<=PHASE_BATTLE
 end
 function DuelLinks.IsEndPhase()
-	local phase=Duel.GetCurrentPhase()
-	return phase==PHASE_END
+	return Duel.GetCurrentPhase()==PHASE_END
+end
+
+--  Turn Functions
+function DuelLinks.IsTurn(num)
+	return Duel.GetTurnCount()==num
+end
+function DuelLinks.IsTurnPlayer(player)
+	return Duel.GetTurnPlayer()==player
 end
