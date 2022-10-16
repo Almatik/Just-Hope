@@ -13,14 +13,19 @@ function s.initial_effect(c)
 	end)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=eg:GetFirst()
-	if tc:IsCode(43096270) and ep==tp then
-		Duel.RegisterFlagEffect(ep,id,0,0,0)
+	if ep==tp then
+		local tc=eg:GetFirst()
+		while tc do
+			if tc:IsCode(43096270) then
+				Duel.RegisterFlagEffect(ep,id,0,0,0)
+			end
+			tc=eg:Next()
+		end
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
 	return DuelLinks.IsEndPhase() and DuelLinks.IsTurnPlayer(tp)
-		and Duel.GetFlagEffect(ep,id)>0
+		and Duel.GetFlagEffect(ep,id)~=0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	DuelLinks.FlipUp(e:GetHandler())
