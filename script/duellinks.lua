@@ -24,17 +24,8 @@ function DuelLinks.AddProcedure(c,skillcon,skillop)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.Place())
+	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,1,EVENT_STARTUP))
 	c:RegisterEffect(e1)
-	if skillop~=nil then
-		local e2=Effect.CreateEffect(c) 
-		e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e2:SetCode(EVENT_STARTUP)
-		e2:SetRange(0x5f)
-		e2:SetOperation(DuelLinks.SkillOp(skillcon,skillop,1,EVENT_STARTUP))
-		c:RegisterEffect(e2)
-	end
 end
 function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
 end
@@ -83,6 +74,11 @@ end
 function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
+		Duel.DisableShuffleCheck(true)
+		Duel.SendtoDeck(c,tp,-2,REASON_RULE)
+		--generate the skill in the "skill zone"
+		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),c:GetCode()|(1<<32))
+		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 		if skillop~=nil then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
