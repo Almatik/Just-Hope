@@ -84,7 +84,9 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 			if type(countlimit)=="number" then
 				e1:SetCountLimit(countlimit)
 			end
-			e1:SetCondition(skillcon)
+			if skillcon~=nil then
+				e1:SetCondition(skillcon)
+			end
 			e1:SetOperation(skillop)
 			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
 		end
