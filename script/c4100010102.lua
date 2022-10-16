@@ -13,14 +13,12 @@ function s.initial_effect(c)
 	end)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	if ep==tp then
-		local tc=eg:GetFirst()
-		while tc do
-			if tc:IsCode(43096270) then
-				Duel.RegisterFlagEffect(ep,id,0,0,0)
-			end
-			tc=eg:GetNext()
+	local tc=eg:GetFirst()
+	while tc do
+		if tc:IsCode(43096270) then
+			Duel.RegisterFlagEffect(ep,id,0,0,0)
 		end
+		tc=eg:GetNext()
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
