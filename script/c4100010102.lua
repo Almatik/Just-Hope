@@ -12,7 +12,7 @@ function s.initial_effect(c)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	if tc:IsCode(43096270) then
+	if tc:IsCode(43096270) and tc:GetControler()==tp then
 		Duel.RegisterFlagEffect(ep,id,0,0,0)
 	end
 end
