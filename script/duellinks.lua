@@ -18,7 +18,7 @@ end
 -- "countlimit": number of times you can use this skill
 -- "setcode": the EVENT code
 
-function DuelLinks.AddProcedure(c)
+function DuelLinks.AddProcedure(c,skillcon,skillop)
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -26,15 +26,17 @@ function DuelLinks.AddProcedure(c)
 	e1:SetRange(0x5f)
 	e1:SetOperation(DuelLinks.Place())
 	c:RegisterEffect(e1)
+	if skillop~=nil then
+		local e1=Effect.CreateEffect(c) 
+		e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetCode(EVENT_STARTUP)
+		e1:SetRange(0x5f)
+		e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,1,EVENT_STARTUP))
+		c:RegisterEffect(e1)
+	end
 end
 function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
-	local e1=Effect.CreateEffect(c) 
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_STARTUP)
-	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_STARTUP))
-	c:RegisterEffect(e1)
 end
 function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
 	local e1=Effect.CreateEffect(c) 

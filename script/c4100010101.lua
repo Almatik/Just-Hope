@@ -2,8 +2,8 @@
 Duel.LoadScript("duellinks.lua")
 local s,id=GetID()
 function s.initial_effect(c)
-	DuelLinks.AddProcedure(c)
-	DuelLinks.StartUp(c,nil,s.flipop,1)
+	DuelLinks.AddProcedure(c,nil,s.flipop)
+	--DuelLinks.StartUp(c,nil,s.flipop,1)
 	DuelLinks.Ignition(c,nil,s.flipop,1)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
