@@ -6,12 +6,12 @@ if not DuelLinks then
 	DuelLinks = aux.DLProcedure
 end
 
--- "Proc for basic skill"
--- c: the card (card)
--- skillcon: condition to activate the skill (function)
--- skillop: operation related to the skill activation (function)
--- countlimit: number of times you can use this skill
--- setcode: the EVENT code
+
+-- "c"": the card (card)
+-- "skillcon": condition to activate the skill (function)
+-- "skillop": operation related to the skill activation (function)
+-- "countlimit": number of times you can use this skill
+-- "setcode": the EVENT code
 
 function DuelLinks.AddProcedure(c)
 	local e1=Effect.CreateEffect(c) 
