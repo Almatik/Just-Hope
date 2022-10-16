@@ -107,7 +107,7 @@ function DuelLinks.Flip(c,id)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_PREDRAW)
-	e1:SetOperation(DuelLinks.FlipOp(c))
+	e1:SetOperation(DuelLinks.FlipOp(c,id))
 	Duel.RegisterEffect(e1,c:GetControler())
 end
 function DuelLinks.FlipOp(c,id)
