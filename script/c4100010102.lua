@@ -19,7 +19,7 @@ function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 			if tc:IsCode(43096270) then
 				Duel.RegisterFlagEffect(ep,id,0,0,0)
 			end
-			tc=eg:Next()
+			tc=eg:GetNext()
 		end
 	end
 end
