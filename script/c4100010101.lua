@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	DuelLinks.StartUp(c,s.flipcon,s.flipop,1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
-	return true
+	return
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
