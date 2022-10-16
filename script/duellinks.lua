@@ -70,8 +70,6 @@ function DuelLinks.Place()
 		--generate the skill in the "skill zone"
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
-	local tc=Duel.CreateToken(tp,24874630)
-	Duel.SendtoDeck(tc,tp,2,REASON_RULE)
 	end
 end
 
@@ -79,6 +77,7 @@ end
 function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
+		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 		if skillop~=nil then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
