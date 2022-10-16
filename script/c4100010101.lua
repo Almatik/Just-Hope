@@ -2,7 +2,7 @@
 Duel.LoadScript("duellinks.lua")
 local s,id=GetID()
 function s.initial_effect(c)
-	--DuelLinks.AddProcedure(c)
+	DuelLinks.AddProcedure(c)
 	DuelLinks.Predraw(c,flipcon,flipop,1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)

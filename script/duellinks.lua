@@ -59,7 +59,8 @@ function DuelLinks.Place()
 		Duel.DisableShuffleCheck(true)
 		Duel.SendtoDeck(c,tp,-2,REASON_RULE)
 		--generate the skill in the "skill zone"
-		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
+		--Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
+		Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),c:GetCode()(1<<32))
 	end
 end
 
