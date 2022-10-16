@@ -3,7 +3,6 @@ Duel.LoadScript("duellinks.lua")
 local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.Procedure(c)
-	DuelLinks.Predraw(c,flipcon,flipop,1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnCount()==1
