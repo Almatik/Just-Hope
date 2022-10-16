@@ -82,13 +82,6 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 end
 
 
-function DuelLinks.CanActivateAtStart(tp)
-	return Duel.GetCurrentChain()==0 and Duel.GetTurnCount()==1
-end
-function DuelLinks.CanActivateMain(tp)
-	return Duel.GetCurrentChain()==0 and Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()
-end
-
 
 
 
