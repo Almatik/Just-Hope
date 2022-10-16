@@ -13,14 +13,16 @@ end
 -- countlimit: number of times you can use this skill
 -- setcode: the EVENT code
 
-function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
+function DuelLinks.Procedure(c)
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp())
+	e1:SetOperation(DuelLinks.Place())
 	c:RegisterEffect(e1)
+end
+function DuelLinks.Startup(c,skillcon,skillop,countlimit)
 	local e2=Effect.CreateEffect(c) 
 	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -61,7 +63,18 @@ function DuelLinks.Trigger(c,skillcon,skillop,countlimit,setcode)
 	c:RegisterEffect(e1)
 end
 
--- Skill Ignition
+-- Place Skill to the Field
+function DuelLinks.Place()
+	return function(e,tp,eg,ep,ev,re,r,rp)
+		local c=e:GetHandler()
+		Duel.DisableShuffleCheck(true)
+		Duel.SendtoDeck(c,tp,-2,REASON_RULE)
+		--generate the skill in the "skill zone"
+		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
+	end
+end
+
+-- Use Ignition Effect
 function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
@@ -76,10 +89,12 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 			e1:SetOperation(skillop)
 			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
 		end
-		Duel.DisableShuffleCheck(true)
-		Duel.SendtoDeck(c,tp,-2,REASON_RULE)
-		--generate the skill in the "skill zone"
-		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 	end
 end
+
+
+
+
+
+
 
