@@ -104,7 +104,7 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 end
 
 
---  Extra Functions
+--  Skill Flip Functions
 function DuelLinks.FlipUp(c)
 	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),c:GetCode()|(1<<32))
 end
@@ -112,3 +112,24 @@ function DuelLinks.FlipDown(c)
 	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),c:GetCode()|(2<<32))
 end
 
+-- Phase Functions
+function DuelLinks.IsDrawPhase()
+	local phase=Duel.GetCurrentPhase()
+	return phase==PHASE_DRAW
+end
+function DuelLinks.IsStandbyPhase()
+	local phase=Duel.GetCurrentPhase()
+	return phase==PHASE_STANDBY
+end
+function DuelLinks.IsMainPhase()
+	local phase=Duel.GetCurrentPhase()
+	return phase==phase==PHASE_MAIN1 or phase==PHASE_MAIN2
+end
+function DuelLinks.IsBattlePhase()
+	local phase=Duel.GetCurrentPhase()
+	return phase>=PHASE_BATTLE_START and phase<=PHASE_BATTLE
+end
+function DuelLinks.IsEndPhase()
+	local phase=Duel.GetCurrentPhase()
+	return phase==PHASE_END
+end
