@@ -67,7 +67,7 @@ function DuelLinks.Trigger(c,skillcon,skillop,countlimit,setcode)
 end
 
 -- Place Skill to the Field
-function DuelLinks.Place(skillcon,skillop,countlimit)
+function DuelLinks.Place(skillcon,skillop)
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
 		Duel.DisableShuffleCheck(true)
@@ -79,9 +79,6 @@ function DuelLinks.Place(skillcon,skillop,countlimit)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 			e1:SetCode(EVENT_STARTUP)
-			if type(countlimit)=="number" then
-				e1:SetCountLimit(countlimit)
-			end
 			if skillcon~=nil then
 				e1:SetCondition(skillcon)
 			end
