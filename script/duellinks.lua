@@ -1,3 +1,8 @@
+HINT_SKILL = 200
+HINT_SKILL_COVER = 201
+HINT_SKILL_FLIP  = 202
+HINT_SKILL_REMOVE = 203
+
 if not aux.DLProcedure then
 	aux.DLProcedure = {}
 	DuelLinks = aux.DLProcedure
