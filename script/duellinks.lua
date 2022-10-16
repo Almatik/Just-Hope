@@ -75,8 +75,6 @@ function DuelLinks.Place()
 		--generate the skill in the "skill zone"
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
-	local tc=Duel.CreateToken(tp,24874630)
-	Duel.SendtoDeck(tc,tp,2,REASON_RULE)
 	end
 end
 -- Use Ignition Effect
