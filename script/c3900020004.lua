@@ -23,3 +23,9 @@ end
 function s.EPop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(2<<32))
 end
+
+
+
+
+
+
