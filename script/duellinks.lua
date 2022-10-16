@@ -18,13 +18,13 @@ end
 -- "countlimit": number of times you can use this skill
 -- "setcode": the EVENT code
 
-function DuelLinks.AddProcedure(c,skillcon,skillop,countlimit)
+function DuelLinks.AddProcedure(c)
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.Place(skillcon,skillop))
+	e1:SetOperation(DuelLinks.Place())
 	c:RegisterEffect(e1)
 end
 function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
@@ -33,7 +33,7 @@ function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_STARTUP))
+	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit))
 	c:RegisterEffect(e1)
 end
 function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
@@ -67,7 +67,7 @@ function DuelLinks.Trigger(c,skillcon,skillop,countlimit,setcode)
 end
 
 -- Place Skill to the Field
-function DuelLinks.Place(skillcon,skillop)
+function DuelLinks.Place()
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
 		Duel.DisableShuffleCheck(true)
@@ -75,9 +75,6 @@ function DuelLinks.Place(skillcon,skillop)
 		--generate the skill in the "skill zone"
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
-		if skillcon~=nil and skillcon==true then
-			skillop
-		end
 	end
 end
 
@@ -88,7 +85,9 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 		if skillop~=nil then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-			e1:SetCode(setcode)
+			if setcode~=nil then
+				e1:SetCode(setcode)
+			end
 			if type(countlimit)=="number" then
 				e1:SetCountLimit(countlimit)
 			end
