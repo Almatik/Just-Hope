@@ -104,5 +104,11 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 end
 
 
-
+--  Extra Functions
+function DuelLinks.FlipUp(c)
+	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),c:GetCode()|(1<<32))
+end
+function DuelLinks.FlipDown(c)
+	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),c:GetCode()|(2<<32))
+end
 
