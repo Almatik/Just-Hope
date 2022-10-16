@@ -94,8 +94,6 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 			e1:SetOperation(skillop)
 			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
 		end
-		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
-		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 	end
 end
 
