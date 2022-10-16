@@ -47,13 +47,13 @@ function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
 end
 function DuelLinks.Ignition(c,skillcon,skillop,countlimit)
 	--activate
-	local e4=Effect.CreateEffect(c) 
-	e4:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e4:SetCode(EVENT_STARTUP)
-	e4:SetRange(0x5f)
-	e4:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_FREE_CHAIN))
-	c:RegisterEffect(e4)
+	local e1=Effect.CreateEffect(c) 
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_STARTUP)
+	e1:SetRange(0x5f)
+	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_FREE_CHAIN))
+	c:RegisterEffect(e1)
 end
 function DuelLinks.Trigger(c,skillcon,skillop,countlimit,setcode)
 	--activate
