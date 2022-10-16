@@ -75,7 +75,7 @@ function DuelLinks.Place(skillcon,skillop)
 		--generate the skill in the "skill zone"
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
-		if skillop~=nil and (skillcon~=nil or skillcon==true) then
+		if skillcon~=nil and skillcon==true then
 			skillop
 		end
 	end
