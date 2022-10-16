@@ -83,8 +83,6 @@ end
 function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
-		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
-		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 		if skillop~=nil then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -104,7 +102,18 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 end
 
 
-
+-- New Funstions
+function DuelLinks.Flip(c,id)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_PREDRAW)
+	e1:SetOperation(DuelLinks.FlipOp(c))
+	Duel.RegisterEffect(e1,c:GetControler())
+end
+function DuelLinks.FlipOp(c,id)
+	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),id|(1<<32))
+	Duel.Hint(HINT_CARD,c:GetControler(),id)
+end
 
 
 
