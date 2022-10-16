@@ -22,16 +22,6 @@ function DuelLinks.Procedure(c)
 	e1:SetOperation(DuelLinks.Place())
 	c:RegisterEffect(e1)
 end
-function DuelLinks.Startup(c,skillcon,skillop,countlimit)
-	local e1=Effect.CreateEffect(c) 
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_STARTUP)
-	e1:SetCountLimit(countlimit)
-	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_STARTUP))
-	c:RegisterEffect(e1)
-end
 function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -92,6 +82,12 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 end
 
 
+function DuelLinks.CanActivateAtStart(tp)
+	return Duel.GetCurrentChain()==0 and Duel.GetTurnCount()==1
+end
+function DuelLinks.CanActivateMain(tp)
+	return Duel.GetCurrentChain()==0 and Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()
+end
 
 
 
