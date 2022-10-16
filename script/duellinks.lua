@@ -24,7 +24,7 @@ function DuelLinks.AddProcedure(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.AddProcedure2())
+	e1:SetOperation(DuelLinks.AddProcedure2(c))
 	c:RegisterEffect(e1)
 end
 function DuelLinks.AddProcedure2(c)
