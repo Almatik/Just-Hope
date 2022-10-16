@@ -33,7 +33,8 @@ function DuelLinks.PreStart(c,skillcon,skillop,countlimit)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_STARTUP)
 	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_STARTUP))
+	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_PREDRAW),
+					DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_STARTUP))
 	c:RegisterEffect(e1)
 end
 function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
