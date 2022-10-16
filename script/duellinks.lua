@@ -37,33 +37,33 @@ function DuelLinks.StartUp(c,skillcon,skillop)
 	c:RegisterEffect(e2)
 end
 function DuelLinks.Predraw(c,skillcon,skillop,countlimit)
-	local e1=Effect.CreateEffect(c) 
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_STARTUP)
-	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_PREDRAW))
-	c:RegisterEffect(e1)
+	local e3=Effect.CreateEffect(c) 
+	e3:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e3:SetCode(EVENT_STARTUP)
+	e3:SetRange(0x5f)
+	e3:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_PREDRAW))
+	c:RegisterEffect(e3)
 end
 function DuelLinks.Ignition(c,skillcon,skillop,countlimit)
 	--activate
-	local e1=Effect.CreateEffect(c) 
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_STARTUP)
-	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_FREE_CHAIN))
-	c:RegisterEffect(e1)
+	local e4=Effect.CreateEffect(c) 
+	e4:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e4:SetCode(EVENT_STARTUP)
+	e4:SetRange(0x5f)
+	e4:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,EVENT_FREE_CHAIN))
+	c:RegisterEffect(e4)
 end
 function DuelLinks.Trigger(c,skillcon,skillop,countlimit,setcode)
 	--activate
-	local e1=Effect.CreateEffect(c) 
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_STARTUP)
-	e1:SetRange(0x5f)
-	e1:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode))
-	c:RegisterEffect(e1)
+	local e5=Effect.CreateEffect(c) 
+	e5:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
+	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e5:SetCode(EVENT_STARTUP)
+	e5:SetRange(0x5f)
+	e5:SetOperation(DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode))
+	c:RegisterEffect(e5)
 end
 
 -- Place Skill to the Field
@@ -98,6 +98,8 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 			e1:SetOperation(skillop)
 			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
 		end
+		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
+		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 	end
 end
 
