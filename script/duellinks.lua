@@ -112,6 +112,7 @@ function DuelLinks.Flip(c,tp,id)
 end
 function DuelLinks.FlipOp(tp,id)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+	Duel.Hint(HINT_CARD,tp,id)
 end
 
 
