@@ -136,3 +136,23 @@ end
 function DuelLinks.IsTurnPlayer(player)
 	return Duel.GetTurnPlayer()==player
 end
+
+-- Check Summon
+function DuelLinks.IsSummoned()
+	aux.GlobalCheck(s,function()
+		local ge1=Effect.CreateEffect(c)
+		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge1:SetCode(EVENT_SUMMON_SUCCESS)
+		ge1:SetOperation(s.checkop)
+		Duel.RegisterEffect(ge1,0)
+	end)
+end
+function DuelLinks.IsSummonedOp(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
+	while tc do
+		if tc:GetFlagEffect(id)==0 then
+			tc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,0,1)
+		end
+		tc=eg:GetNext()
+	end
+end
