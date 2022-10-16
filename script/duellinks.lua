@@ -5,15 +5,12 @@ end
 if not DuelLinks then
 	DuelLinks = aux.DLProcedure
 end
---function that return if the player (tp) can activate the skill
 
--- Proc for basic skill
+-- "Proc for basic skill"
 -- c: the card (card)
--- coverNum: the Number of the cover (int)
 -- skillcon: condition to activate the skill (function)
 -- skillop: operation related to the skill activation (function)
 -- countlimit: number of times you can use this skill
--- skilltype: the type of the skill
 -- setcode: the EVENT code
 
 function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
