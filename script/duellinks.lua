@@ -76,14 +76,9 @@ function DuelLinks.Place(skillcon,skillop)
 		Duel.Hint(HINT_SKILL_COVER,c:GetControler(),VRAINS_SKILL_COVER)
 		Duel.Hint(HINT_SKILL,c:GetControler(),c:GetCode())
 		if skillop~=nil then
-			local e1=Effect.CreateEffect(c)
-			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-			e1:SetCode(EVENT_STARTUP)
-			if skillcon~=nil then
-				e1:SetCondition(skillcon)
+			if skillcon~=nil or skillcon==true then
+				skillop
 			end
-			e1:SetOperation(skillop)
-			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
 		end
 	end
 end
