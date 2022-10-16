@@ -103,16 +103,16 @@ end
 
 
 -- New Funstions
-function DuelLinks.Flip(c,id)
+function DuelLinks.Flip(c,tp,id)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_PREDRAW)
-	e1:SetOperation(DuelLinks.FlipOp(c,id))
-	Duel.RegisterEffect(e1,c:GetControler())
+	e1:SetOperation(DuelLinks.FlipOp(tp,id))
+	Duel.RegisterEffect(e1,tp)
 end
 function DuelLinks.FlipOp(c,id)
-	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),id|(1<<32))
-	Duel.Hint(HINT_CARD,c:GetControler(),id)
+	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+	Duel.Hint(HINT_CARD,tp,id)
 	local tc=Duel.CreateToken(tp,24874630)
 	Duel.SendtoDeck(tc,tp,2,REASON_RULE)
 end
