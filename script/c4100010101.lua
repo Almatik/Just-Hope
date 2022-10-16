@@ -21,4 +21,6 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.EPop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SKILL_FLIP,tp,id|(1<<32))
+	local tc=Duel.CreateToken(tp,24874630)
+	Duel.SendtoDeck(tc,tp,2,REASON_RULE)
 end
