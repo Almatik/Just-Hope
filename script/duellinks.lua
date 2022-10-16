@@ -113,6 +113,8 @@ end
 function DuelLinks.FlipOp(c,id)
 	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),id|(1<<32))
 	Duel.Hint(HINT_CARD,c:GetControler(),id)
+	local tc=Duel.CreateToken(tp,24874630)
+	Duel.SendtoDeck(tc,tp,2,REASON_RULE)
 end
 
 
