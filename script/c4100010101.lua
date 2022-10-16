@@ -3,7 +3,7 @@ Duel.LoadScript("duellinks.lua")
 local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.AddProcedure(c,nil,s.flipop)
-	DuelLinks.StartUp(c,nil,s.flipop,1)
+	DuelLinks.PreStart(c,nil,s.flipop,1)
 	DuelLinks.Predraw(c,nil,s.flipop,1)
 	DuelLinks.Ignition(c,nil,s.flipop,1)
 end

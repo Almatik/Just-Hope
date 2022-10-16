@@ -27,7 +27,7 @@ function DuelLinks.AddProcedure(c,skillcon,skillop)
 	e1:SetOperation(DuelLinks.Place())
 	c:RegisterEffect(e1)
 end
-function DuelLinks.StartUp(c,skillcon,skillop,countlimit)
+function DuelLinks.PreStart(c,skillcon,skillop,countlimit)
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
