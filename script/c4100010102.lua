@@ -22,7 +22,7 @@ function s.initial_effect(c)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	if tc:IsLevelAbove(4) then
+	if tc:IsCode(43096270) then
 		s[tc:GetControler()]=true
 	end
 end
