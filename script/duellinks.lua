@@ -97,7 +97,7 @@ function DuelLinks.SkillOp(skillcon,skillop,countlimit,setcode)
 			end
 			e1:SetOperation(skillop)
 			Duel.RegisterEffect(e1,e:GetHandlerPlayer())
-
+			Duel.Hint(HINT_CARD,tp,id)
 		end
 	end
 end
