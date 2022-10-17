@@ -4,21 +4,15 @@ local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.AddProcedure(c,nil,s.flipop)
 	DuelLinks.Trigger(c,s.flipcon,s.flipop,1,EVENT_PHASE+PHASE_END)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetRange(0x5f)
-	e1:SetOperation(s.checkop)
-	c:RegisterEffect(e1)
-end
-function s.checkop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Draw(tp,1,REASON_RULE)
-	local tc=eg:GetFirst()
-	if tc:IsCode(43096270) and tc:IsControler()==tp then
-		Duel.RegisterFlagEffect(tp,id,0,0,0)
-	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
+	e1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1:SetCondition(s.regcon)
+	e1:SetOperation(s.regop)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
 	return Duel.GetTurnPlayer()==tp
 		and Duel.GetFlagEffect(tp,id)~=0
 end
@@ -28,4 +22,13 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		local num=6-Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
 		Duel.Draw(tp,num,REASON_RULE)
 	end
+end
+function s.filter(c,sp)
+	return c:GetSummonPlayer()==sp
+end
+function s.regcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.filter,1,nil,1-tp)
+end
+function s.regop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
 end
