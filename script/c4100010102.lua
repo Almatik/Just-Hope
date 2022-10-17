@@ -9,7 +9,7 @@ end
 function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
-		if tc:IsCode(43096270) and ep==e:GetHandlerPlayer() then
+		if tc:IsCode(10000020) and ep==e:GetHandlerPlayer() then
 			Duel.RegisterFlagEffect(ep,id,RESET_PHASE+PHASE_END,0,0)
 		end
 		tc=eg:GetNext()
