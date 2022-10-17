@@ -30,5 +30,6 @@ function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil,tp)
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Draw(tp,num,REASON_RULE)
 	Duel.RegisterFlagEffect(tp,id,0,0,1)
 end
