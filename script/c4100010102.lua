@@ -13,6 +13,7 @@ function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	while tc do
 		if tc:IsCode(43096270) then
 			s[tc:GetSummonPlayer()]=true
+			Duel.Draw(tp,num,REASON_RULE)
 		end
 		tc=eg:GetNext()
 	end
