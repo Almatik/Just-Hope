@@ -10,7 +10,7 @@ function s.initial_effect(c)
 	e1:SetCondition(s.regcon)
 	e1:SetOperation(s.regop)
 	e1:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e1,tp)
+	c:RegisterEffect(e1)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
 	return Duel.GetTurnPlayer()==tp
