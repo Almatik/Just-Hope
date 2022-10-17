@@ -17,7 +17,7 @@ function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
-	return s[tp]
+	return Duel.GetFlagEffect(tp,id)
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	DuelLinks.FlipUp(e:GetHandler())
