@@ -4,17 +4,17 @@ local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.AddProcedure(c,nil,s.flipop)
 	DuelLinks.Trigger(c,s.flipcon,s.flipop,1,EVENT_PHASE+PHASE_END)
-	local ge1=Effect.CreateEffect(c)
-	ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	ge1:SetCode(EVENT_SUMMON_SUCCESS)
-	ge1:SetOperation(s.checkop)
-	c:RegisterEffect(ge1)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1:SetOperation(s.checkop)
+	c:RegisterEffect(e1)
 end
 function s.checkop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Draw(tp,1,REASON_RULE)
 	local tc=eg:GetFirst()
 	if tc:IsCode(43096270) and tc:IsControler()==tp then
 		Duel.RegisterFlagEffect(tp,id,0,0,0)
-		Duel.Draw(tp,1,REASON_RULE)
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
