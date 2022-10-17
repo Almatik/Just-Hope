@@ -10,14 +10,14 @@ function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsCode(43096270) then
-			Duel.RegisterFlagEffect(tc:GetControler(),id,0,0,0)
+			Duel.RegisterFlagEffect(ep,id,0,0,0)
 			Duel.Draw(tp,1,REASON_RULE)
 		end
 		tc=eg:GetNext()
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
-	return Duel.GetFlagEffect(tp,id)>0
+	return Duel.GetFlagEffect(ep,id)>0
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	DuelLinks.FlipUp(e:GetHandler())
