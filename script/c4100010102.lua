@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	DuelLinks.Trigger(c,s.summcon,s.summop,1,EVENT_SUMMON_SUCCESS)
 	DuelLinks.Trigger(c,s.flipcon,s.flipop,1,EVENT_PHASE+PHASE_END)
 end
-function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
+function s.summcon(e,tp,eg,ep,ev,re,r,tp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsCode(43096270) then
@@ -15,7 +15,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
 		tc=eg:GetNext()
 	end
 end
-function s.flipop(e,tp,eg,ep,ev,re,r,rp)
+function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(tp,id,0,0,0)
 end
 
