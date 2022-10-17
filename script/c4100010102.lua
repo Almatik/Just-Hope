@@ -9,7 +9,7 @@ end
 function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
-		if tc:IsCode(43096270) and tc:IsControler() then
+		if tc:IsCode(43096270) and tc:IsControler(tp) then
 			Duel.RegisterFlagEffect(ep,id,0,0,0)
 		end
 		tc=eg:GetNext()
