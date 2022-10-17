@@ -4,17 +4,34 @@ local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.AddProcedure(c,nil,s.flipop)
 	DuelLinks.Trigger(c,s.flipcon,s.flipop,1,EVENT_PHASE+PHASE_END)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
-	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetCondition(s.regcon)
-	e1:SetOperation(s.regop)
-	e1:SetReset(RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e1)
+	aux.GlobalCheck(s,function()
+		s[0]=true
+		s[1]=true
+		local ge1=Effect.CreateEffect(c)
+		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge1:SetCode(EVENT_SUMMON_SUCCESS)
+		ge1:SetOperation(s.checkop)
+		Duel.RegisterEffect(ge1,0)
+		local ge2=Effect.CreateEffect(c)
+		ge2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge2:SetCode(EVENT_ADJUST)
+		ge2:SetCountLimit(1)
+		ge2:SetOperation(s.clear)
+		Duel.RegisterEffect(ge2,0)
+	end)
+end
+function s.checkop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
+	if tc:IsLevelAbove(7) then
+		s[tc:GetControler()]=true
+	end
+end
+function s.clear(e,tp,eg,ep,ev,re,r,rp)
+	s[0]=false
+	s[1]=false
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
-	return Duel.GetTurnPlayer()==tp
-		and Duel.GetFlagEffect(tp,id)~=0
+	return s[tp]
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	DuelLinks.FlipUp(e:GetHandler())
@@ -22,14 +39,4 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 		local num=6-Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
 		Duel.Draw(tp,num,REASON_RULE)
 	end
-end
-function s.filter(c,sp)
-	return c:GetSummonPlayer()==sp
-end
-function s.regcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.filter,1,nil,tp)
-end
-function s.regop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Draw(tp,num,REASON_RULE)
-	Duel.RegisterFlagEffect(tp,id,0,0,1)
 end
