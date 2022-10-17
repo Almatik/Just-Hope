@@ -12,6 +12,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
 		if tc:IsCode(43096270) then
 			return true
 		end
+		tc=eg:GetNext()
 	end
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
