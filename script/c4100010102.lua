@@ -10,14 +10,15 @@ function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsCode(43096270) and ep==e:GetHandlerPlayer() then
-			Duel.RegisterFlagEffect(ep,id,RESET_PHASE+PHASE_END,0,0)
+			Duel.RegisterFlagEffect(ep,{id,0},RESET_PHASE+PHASE_END,0,0)
 			Duel.Draw(tp,1,REASON_RULE)
 		end
 		tc=eg:GetNext()
 	end
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
-	return Duel.GetFlagEffect(ep,id)>0 and ep==e:GetHandlerPlayer()
+	return Duel.GetFlagEffect(ep,{id,0})>0
+		and ep==e:GetHandlerPlayer()
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
