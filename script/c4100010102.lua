@@ -4,20 +4,21 @@ local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.AddProcedure(c,nil,s.flipop)
 	DuelLinks.Trigger(c,nil,s.summop,1,EVENT_SUMMON_SUCCESS)
+	s[0]=false
+	s[1]=false
 	DuelLinks.Trigger(c,s.flipcon,s.flipop,1,EVENT_PHASE+PHASE_END)
 end
 function s.summop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsCode(43096270) then
-			Duel.RegisterFlagEffect(tp,id,0,0,0)
+			s[tc:GetSummonPlayer()]=true
 		end
 		tc=eg:GetNext()
 	end
 end
-
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
-	return Duel.GetFlagEffect(tp,id)~=0
+	return s[tp]
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	DuelLinks.FlipUp(e:GetHandler())
