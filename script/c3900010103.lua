@@ -33,6 +33,7 @@ function s.initial_effect(c)
 end
 s.listed_names={id,BLEACH_CHAD}
 s.listed_series={0x39a1}
+s.bleach_name=CHAD 
 
 --Additional Material
 function s.extrafilter(c,tp)
