@@ -4,7 +4,7 @@ function s.initial_effect(c)
 	--Link Summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_TOGRAVE)
+	e1:SetCategory(CATEGORY_TOGRAVE+CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_HAND)
@@ -18,12 +18,12 @@ function s.filter1(c,e,tp,oc)
 	local m=c:GetMetatable(true)
 	if not m then return false end
 	local bn=m.bleach_name
-	return bn and c:IsSetCard(0x39a1)
-		and c:IsAbleToGrave()
+	return bn
+		and c:IsSetCard(0x39a1) and c:IsAbleToGrave()
 		and oc:IsAbleToGrave()
-		and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,bn)
+		and Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,bn)
 end
-function s.filter2(c,e,tp,mc,bn)
+function s.filter2(c,e,tp,bn)
 	local m=c:GetMetatable(true)
 	if not m then return false end
 	local lbn=m.bleach_name
@@ -43,8 +43,8 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tm=tc:GetMetatable(true)
 	if not tm then return false end
 	local bn=tm.bleach_name
-	if tc and Duel.SendtoGrave(tc,REASON_EFFECT)~=0 then
-		local tl=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tc,bn):GetFirst()
+	if tc and Duel.SendtoGrave(tc,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)~=0 then
+		local tl=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,bn):GetFirst()
 		local g=Group.FromCards(c,tc)
 		tl:SetMaterial(g)
 		Duel.SendtoGrave(g,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)
