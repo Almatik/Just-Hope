@@ -15,7 +15,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 		and Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0
 		and Duel.GetDrawCount(tp)>0
 		and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,1,nil,83764718)
-		and (Duel.GetLP(tp)<=6000 or Duel.IsExistingMatchingCard(s.filter,tp,0,LOCATION_MZONE,1,nil))
+		and (Duel.GetLP(tp)<=8000 or Duel.IsExistingMatchingCard(s.filter,tp,0,LOCATION_MZONE,1,nil))
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--ask if you want to activate the skill or not
