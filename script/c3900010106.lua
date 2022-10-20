@@ -43,9 +43,11 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tm=tc:GetMetatable(true)
 	if not tm then return false end
 	local bn=tm.bleach_name
-	if tc and Duel.SendtoGrave(tc,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)~=0 then
+	if tc then
 		local tl=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,bn):GetFirst()
-		local g=Group.FromCards(c,tc)
+		local g=Group.CreateGroup()
+		g:Merge(c)
+		g:Merge(tc)
 		tl:SetMaterial(g)
 		Duel.SendtoGrave(g,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
