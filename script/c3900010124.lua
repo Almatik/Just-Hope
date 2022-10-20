@@ -33,7 +33,7 @@ function s.initial_effect(c)
 end
 s.listed_names={id}
 s.listed_series={0x39a1,0x39a5}
-s.bleach_name=INOUE 
+s.bleach_name=3900010102
 function s.lcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsSetCard,1,nil,0x39a1,lc,sumtype,tp)
 		and g:GetClassCount(Card.GetCode)==#g

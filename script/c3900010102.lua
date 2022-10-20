@@ -33,7 +33,7 @@ function s.initial_effect(c)
 end
 s.listed_names={id,BLEACH_RUKIA}
 s.listed_series={0x39a1}
-s.bleach_name=RUKIA 
+s.bleach_name=id
 
 --Additional Material
 function s.extrafilter(c,tp)
