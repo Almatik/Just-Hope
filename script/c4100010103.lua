@@ -17,8 +17,9 @@ function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
 	--draw replace
 	DuelLinks.FlipUp(e:GetHandler())
-	local g=Duel.SelectMatchingCard(tp,nil,tp,LOCATION_DECK,0,1,1,nil)
-	if #g~=0 then
-		Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
+	local g=Duel.GetFieldGroup(tp,LOCATION_DECK,0)
+	local tc=aux.SelectUnselectGroup(g,e,tp,1,1,aux.dncheck,1,tp)
+	if #tc~=0 then
+		Duel.SendtoDeck(tc,nil,0,REASON_EFFECT)
 	end
 end
