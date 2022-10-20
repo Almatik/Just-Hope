@@ -38,17 +38,18 @@ end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g1=Duel.SelectMatchingCard(tp,s.filter1,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,c)
-	local tc=g1:GetFirst()
+	local g=Duel.SelectMatchingCard(tp,s.filter1,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,c)
+	local tc=g:GetFirst()
 	local tm=tc:GetMetatable(true)
 	if not tm then return false end
 	local bn=tm.bleach_name
 	if tc then
 		local tl=Duel.SelectMatchingCard(tp,s.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,bn):GetFirst()
-		local g=Group.CreateGroup()
-		g:Merge(c,tc)
-		tl:SetMaterial(g)
-		Duel.SendtoGrave(g,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)
+		local mg=Group.CreateGroup()
+		mg:Merge(c)
+		mg:Merge(tc)
+		tl:SetMaterial(mg)
+		Duel.SendtoGrave(mg,REASON_EFFECT+REASON_MATERIAL+REASON_LINK)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		if tl then Duel.SpecialSummon(tl,SUMMON_TYPE_LINK,tp,tp,false,false,POS_FACEUP) end
 	end
