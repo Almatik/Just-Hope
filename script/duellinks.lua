@@ -18,7 +18,7 @@ end
 -- "countlimit": number of times you can use this skill
 -- "setcode": the EVENT code
 
-function DuelLinks.AddProcedure(c,skillcon,skillop)
+function DuelLinks.AddProcedure(c)
 	local e1=Effect.CreateEffect(c) 
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
