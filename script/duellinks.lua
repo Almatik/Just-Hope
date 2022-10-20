@@ -112,28 +112,29 @@ function DuelLinks.FlipDown(c)
 	Duel.Hint(HINT_SKILL_FLIP,c:GetControler(),c:GetCode()|(2<<32))
 end
 
--- Phase Functions
-function DuelLinks.IsDrawPhase()
-	return Duel.GetCurrentPhase()==PHASE_DRAW
+-- Check LP Lost
+function DuelLinks.CheckLP(s,tp)
+	aux.GlobalCheck(s,function()
+		s[0]=nil
+		s[1]=nil
+		s[2]=0
+		s[3]=0
+		local ge1=Effect.CreateEffect(c)
+		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge1:SetCode(EVENT_ADJUST)
+		ge1:SetOperation(DuelLinks.CheckOp(s,tp))
+		Duel.RegisterEffect(ge1,0)
+	end)
 end
-function DuelLinks.IsStandbyPhase()
-	return Duel.GetCurrentPhase()==PHASE_STANDBY
+function DuelLinks.CheckOp(s,tp)
+	for tp=0,1 do
+		if not s[tp] then s[tp]=Duel.GetLP(tp) end
+		if s[tp]>Duel.GetLP(tp) then
+			s[2+tp]=s[2+tp]+(s[tp]-Duel.GetLP(tp))
+			s[tp]=Duel.GetLP(tp)
+		end
+	end
 end
-function DuelLinks.IsMainPhase()
-	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
+function DuelLinks.LostLP(s,tp,num)
+	s[2+tp]>=num
 end
-function DuelLinks.IsBattlePhase()
-	return Duel.GetCurrentPhase()>=PHASE_BATTLE_START and Duel.GetCurrentPhase()<=PHASE_BATTLE
-end
-function DuelLinks.IsEndPhase()
-	return Duel.GetCurrentPhase()==PHASE_END
-end
-
---  Turn Functions
-function DuelLinks.IsTurn(num)
-	return Duel.GetTurnCount()==num
-end
-function DuelLinks.IsTurnPlayer(player)
-	return Duel.GetTurnPlayer()==player
-end
-
