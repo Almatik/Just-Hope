@@ -17,12 +17,10 @@ function s.summop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.flipcon(e,tp,eg,ep,ev,re,r,tp)
 	return Duel.GetFlagEffect(ep,id)~=0
-		and Duel.GetFlagEffect(ep,id*2)==0
 		and ep==e:GetHandlerPlayer()
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.SelectYesNo(tp,aux.Stringid(id,0)) then return end
-	Duel.RegisterFlagEffect(ep,id*2,0,0,0)
 	DuelLinks.FlipUp(e:GetHandler())
 	for tp=0,1 do
 		local num=6-Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
