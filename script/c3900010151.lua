@@ -31,6 +31,14 @@ function s.initial_effect(c)
 	e2:SetTarget(s.tg2)
 	e2:SetOperation(s.op2)
 	c:RegisterEffect(e2)
+	--Shinigami
+	local e5=e1:Clone()
+	e5:SetDescription(aux.Stringid(id,5))
+	e5:SetCategory(CATEGORY_REMOVE)
+	e5:SetCondition(s.con5)
+	e5:SetTarget(s.tg5)
+	e5:SetOperation(s.op5)
+	c:RegisterEffect(e5)
 end
 s.listed_names={0x39a1,0x39a2}
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -83,6 +91,9 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
 	end
 end
+
+
+
 function s.confilter2(c,tp)
 	return c:IsFaceup() and c:IsSetCard(0x39a2) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
 end
@@ -93,10 +104,10 @@ function s.filter2(c)
 	return c:IsMonster() and c:IsAbleToDeck()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and s.filter2(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(s.filter2,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter2(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(s.filter2,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectTarget(tp,s.filter2,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,nil)
+	local g=Duel.SelectTarget(tp,s.filter2,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function s.op2(e,tp,eg,ep,ev,re,r,rp)
@@ -105,5 +116,31 @@ function s.op2(e,tp,eg,ep,ev,re,r,rp)
 		if Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)~=0 then
 			Duel.Draw(tp,1,REASON_EFFECT)
 		end
+	end
+end
+
+
+
+function s.confilter5(c,tp)
+	return c:IsFaceup() and c:IsSetCard(0x39a9) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
+end
+function s.con5(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.confilter2,1,nil,tp)
+end
+function s.filter5(c)
+	return c:IsMonster() and c:IsAbleToRemove()
+end
+function s.tg5(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(1-tp) and s.filter5(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(s.filter5,tp,0,LOCATION_GRAVE,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g=Duel.SelectTarget(tp,s.filter5,tp,0,LOCATION_GRAVE,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
+end
+function s.op5(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
+		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end
