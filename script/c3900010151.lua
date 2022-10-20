@@ -32,6 +32,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.op2)
 	c:RegisterEffect(e2)
 	--Shinigami
+	local e3=e1:Clone()
+	e3:SetDescription(aux.Stringid(id,3))
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetCondition(s.con3)
+	e3:SetTarget(s.tg3)
+	e3:SetOperation(s.op3)
+	c:RegisterEffect(e3)
+	--Shinigami
 	local e4=e1:Clone()
 	e4:SetDescription(aux.Stringid(id,4))
 	e4:SetCategory(CATEGORY_DESTROY)
@@ -116,6 +124,33 @@ function s.op2(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
+	end
+end
+
+
+
+function s.confilter3(c,tp)
+	return c:IsFaceup() and c:IsSetCard(0x39a8) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
+end
+function s.con3(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.confilter3,1,nil,tp)
+end
+function s.filter3(c)
+	return c:IsReason(REASON_FUSION+REASON_SYNCHRO+REASON_XYZ+REASON_LINK) and eg:IsContains(c:GetReasonCard()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
+function s.tg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.filter3(chkc,eg,e,tp) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingTarget(s.filter3,tp,LOCATION_GRAVE,0,1,nil,eg,e,tp) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectTarget(tp,s.filter3,tp,LOCATION_GRAVE,0,1,1,nil,eg,e,tp)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
+end
+function s.op3(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
 
