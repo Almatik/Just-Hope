@@ -35,7 +35,7 @@ function s.filter2(c,e,tp,bn)
 	local m=c:GetMetatable(true)
 	if not m then return false end
 	local lbn=m.bleach_name
-	return lbn==bn and c:IsSetCard(0x39a1)
+	return lbn==bn and c:IsSetCard(0x39a1) and c:GetLink()==2
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_LINK,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
