@@ -135,7 +135,7 @@ end
 function s.con3(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.confilter3,1,nil,tp)
 end
-function s.filter3(c)
+function s.filter3(c,eg,e,tp)
 	return c:IsReason(REASON_FUSION+REASON_SYNCHRO+REASON_XYZ+REASON_LINK) and eg:IsContains(c:GetReasonCard()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.tg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
