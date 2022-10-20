@@ -32,6 +32,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.op2)
 	c:RegisterEffect(e2)
 	--Shinigami
+	local e4=e1:Clone()
+	e4:SetDescription(aux.Stringid(id,4))
+	e4:SetCategory(CATEGORY_DESTROY)
+	e4:SetCondition(s.con4)
+	e4:SetTarget(s.tg4)
+	e4:SetOperation(s.op4)
+	c:RegisterEffect(e4)
+	--Shinigami
 	local e5=e1:Clone()
 	e5:SetDescription(aux.Stringid(id,5))
 	e5:SetCategory(CATEGORY_REMOVE)
@@ -113,11 +121,38 @@ end
 
 
 
+function s.confilter4(c,tp)
+	return c:IsFaceup() and c:IsSetCard(0x39a5) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
+end
+function s.con4(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.confilter4,1,nil,tp)
+end
+function s.tg5(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil) end
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
+	local tg=g:GetMinGroup(Card.GetAttack)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tg,1,0,0)
+end
+function s.op5(e,tp,eg,ep,ev,re,r,rp)
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
+	if #g>0 then
+		local tg=g:GetMinGroup(Card.GetAttack)
+		if #tg>1 then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+			local sg=tg:Select(1-tp,1,1,nil)
+			Duel.HintSelection(sg)
+			Duel.Destroy(sg,REASON_EFFECT)
+		else Duel.Destroy(tg,REASON_EFFECT) end
+	end
+end
+
+
+
 function s.confilter5(c,tp)
 	return c:IsFaceup() and c:IsSetCard(0x39a9) and c:IsControler(tp) and c:IsSummonLocation(LOCATION_EXTRA)
 end
 function s.con5(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.confilter2,1,nil,tp)
+	return eg:IsExists(s.confilter5,1,nil,tp)
 end
 function s.filter5(c)
 	return c:IsMonster() and c:IsAbleToRemove()
