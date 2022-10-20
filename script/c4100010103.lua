@@ -3,6 +3,7 @@ Duel.LoadScript("duellinks.lua")
 local s,id=GetID()
 function s.initial_effect(c)
 	DuelLinks.AddProcedure(c)
+	DuelLinks.Predraw(c,flipcon,flipop,1)
 	aux.GlobalCheck(s,function()
 		s[0]=nil
 		s[1]=nil
@@ -11,12 +12,11 @@ function s.initial_effect(c)
 		local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(EVENT_ADJUST)
-		ge1:SetOperation(DuelLinks.CheckOp(s,tp))
+		ge1:SetOperation(s.checkop)
 		Duel.RegisterEffect(ge1,0)
 	end)
-	DuelLinks.Predraw(c,flipcon,flipop,1)
 end
-function DuelLinks.CheckOp(s,tp)
+function s.checkop()
 	for tp=0,1 do
 		if not s[tp] then s[tp]=Duel.GetLP(tp) end
 		if s[tp]>Duel.GetLP(tp) then
@@ -29,7 +29,7 @@ function s.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	--condition
 	return Duel.GetCurrentChain()==0 and tp==Duel.GetTurnPlayer() and Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0
 		and Duel.GetDrawCount(tp)>0
-		and DuelLinks.LostLP(s,tp,2000)
+		and s[2+tp]>=2000
 end
 function s.flipop(e,tp,eg,ep,ev,re,r,rp)
 	--ask if you want to activate the skill or not
