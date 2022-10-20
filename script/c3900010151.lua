@@ -162,13 +162,13 @@ end
 function s.con4(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.confilter4,1,nil,tp)
 end
-function s.tg5(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.tg4(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil) end
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
 	local tg=g:GetMinGroup(Card.GetAttack)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tg,1,0,0)
 end
-function s.op5(e,tp,eg,ep,ev,re,r,rp)
+function s.op4(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
 	if #g>0 then
 		local tg=g:GetMinGroup(Card.GetAttack)

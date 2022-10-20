@@ -1,5 +1,7 @@
 --Zangetsu the Moon Slasher
    c:EnableUnsummonable()
+local s,id=GetID()
+function s.initial_effect(c)
 	-- Equip
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
