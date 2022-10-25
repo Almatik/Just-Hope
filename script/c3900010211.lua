@@ -53,7 +53,8 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return r&REASON_EFFECT+REASON_BATTLE~=0
+	local c=e:GetHandler()
+	return r&REASON_EFFECT+REASON_BATTLE~=0 and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHanlder()
@@ -64,7 +65,6 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHanlder()
 	local atk=c:GetPreviousAttackOnField()-3000
 	if Duel.SpecialSummonStep(c,0,tp,tp,false,false,POS_FACEUP) then
-			--Increase ATK/DEF
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_UPDATE_ATTACK)
