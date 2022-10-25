@@ -17,13 +17,16 @@ function s.retfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x39a2)
 end
 function s.retcon(e,tp,eg,ep,ev,re,r,rp,chk)
-	return Duel.IsExistingTarget(s.retfilter,tp,LOCATION_MZONE,0,1,nil)
+	local c=e:GetHandler()
+	return Duel.IsExistingTarget(s.retfilter,tp,LOCATION_MZONE,0,1,c)
 		and Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,nil):GetCount()>0
 end
 function s.rettg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local tc=Duel.SelectTarget(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil)
-	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,tc)
+	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,nil)
+	local tg=g:FilterSelect(tp,s.retfilter,1,1,nil)
+	tg:Sub(g)
+	local tc=Duel.SetTargetCard(tg)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,#g,0,0)
 end
 function s.retop(e,tp,eg,ep,ev,re,r,rp)
