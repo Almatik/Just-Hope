@@ -59,7 +59,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHanlder()
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)> end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,c:GetLocation())
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
