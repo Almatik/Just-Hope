@@ -58,12 +58,12 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return r&REASON_EFFECT+REASON_BATTLE~=0 and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHanlder()
+	local c=e:GetHandler()
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,c:GetLocation())
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHanlder()
+	local c=e:GetHandler()
 	local atk=c:GetPreviousAttackOnField()-2000
 	if Duel.SpecialSummonStep(c,0,tp,tp,false,false,c:GetPreviousPosition()) then
 		local e1=Effect.CreateEffect(c)
