@@ -65,12 +65,12 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHanlder()
 	local atk=c:GetPreviousAttackOnField()-3000
 	if Duel.SpecialSummonStep(c,0,tp,tp,false,false,POS_FACEUP) then
-			local e1=Effect.CreateEffect(c)
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_UPDATE_ATTACK)
-			e1:SetReset(RESET_EVENT+RESETS_STANDARD)
-			e1:SetValue(atk+1000)
-			c:RegisterEffect(e1)
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e1:SetValue(atk+1000)
+		c:RegisterEffect(e1)
 	end
 	Duel.SpecialSummonComplete()
 end
