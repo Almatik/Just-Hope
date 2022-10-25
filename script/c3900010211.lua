@@ -39,7 +39,7 @@ function s.spcon(e,c)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.GetAttackTarget()~=nil end
+	if chk==0 then return Duel.GetAttackTarget()~=nil and c:IsLocation(LOCATION_MZONE) end
 	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,c)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,#g,0,0)
 end
