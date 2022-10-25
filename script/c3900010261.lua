@@ -22,7 +22,7 @@ function s.retcon(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.rettg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local tc=Duel.SelectMatchingCard(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	local tc=Duel.SelectMatchingCard(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil):GetFirst()
 	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,tc)
 	e:SetLabelObject(tc)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,#g,0,0)
