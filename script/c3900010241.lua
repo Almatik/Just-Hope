@@ -12,7 +12,17 @@ function s.initial_effect(c)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
-
+	--
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_DESTROY)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e2:SetRange(LOCATION_HAND)
+	e2:SetCondition(s.condition)
+	e2:SetCost(s.cost)
+	e2:SetTarget(s.target)
+	e2:SetOperation(s.operation)
+	c:RegisterEffect(e2)
 end
 s.listed_series={0x39a2}
 s.division_number=11
@@ -37,5 +47,42 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,lv)
 	if #g>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	end
+end
+
+
+
+function s.filter(c)
+	return c:IsFaceup() and c:IsSetCard(0x39a2)
+end
+function s.condition(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetAttacker():IsControler(1-tp)
+		and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)
+end
+function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_MZONE,0,nil)
+	if #g>1 then
+		if chk==0 then return c:IsDiscardable() end
+		Duel.SendtoGrave(c,REASON_COST+REASON_DISCARD)
+	elseif #g==1 then
+		if chk==0 then return not c:IsPublic() end
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_PUBLIC)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		c:RegisterEffect(e1)
+	end
+end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local at=Duel.GetAttacker()
+	if at:IsAttackPos() and at:IsRelateToBattle() then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e1:SetValue(-800)
+		at:RegisterEffect(e1)
 	end
 end
