@@ -54,7 +54,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return r&REASON_EFFECT+REASON_BATTLE~=0 and c:IsPreviousLocation(LOCATION_ONFIELD)
+	return r&REASON_EFFECT+REASON_BATTLE~=0 and c:IsPreviousLocation(LOCATION_MZONE)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHanlder()
@@ -64,7 +64,7 @@ end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHanlder()
 	local atk=c:GetPreviousAttackOnField()-3000
-	if Duel.SpecialSummonStep(c,0,tp,tp,false,false,POS_FACEUP) then
+	if Duel.SpecialSummonStep(c,0,tp,tp,false,false,c:GetPreviousPosition()) then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
