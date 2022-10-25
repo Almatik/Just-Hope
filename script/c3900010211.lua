@@ -54,7 +54,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return r&REASON_EFFECT+REASON_BATTLE~=0 and c:IsPreviousLocation(LOCATION_MZONE)
+	return r&REASON_EFFECT+REASON_BATTLE~=0 and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHanlder()
