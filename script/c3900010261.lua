@@ -36,6 +36,6 @@ function s.retop(e,tp,eg,ep,ev,re,r,rp)
 	if tg:IsExists(Card.IsControler,1,nil,tp) or Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)>1 then
 		sg:Merge(g)
 	end
-	sg:Sub(tg).
+	sg:Sub(tg)
 	Duel.SendtoHand(sg,tp,REASON_EFFECT)
 end
