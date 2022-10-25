@@ -17,7 +17,7 @@ function s.retfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x39a2)
 end
 function s.retcon(e,tp,eg,ep,ev,re,r,rp,chk)
-	return Duel.GetMatchingGroup(s.retfilter,tp,LOCATION_MZONE,0,nil):GetCount()>1
+	return Duel.IsExistingTarget(s.retfilter,tp,LOCATION_MZONE,0,1,nil)
 		and Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,nil):GetCount()>0
 end
 function s.rettg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
