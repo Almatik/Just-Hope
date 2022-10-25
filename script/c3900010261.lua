@@ -13,7 +13,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.retop)
 	c:RegisterEffect(e1)
 end
-function s.retfilter(c,tp)
+function s.retfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x39a2)
 end
 function s.retcon(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -22,7 +22,7 @@ function s.retcon(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.rettg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local tc=Duel.SelectTarget(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil,tp):GetFirst()
+	local tc=Duel.SelectTarget(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,tc)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,#g,0,0)
 end
