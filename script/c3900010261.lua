@@ -21,21 +21,21 @@ function s.retcon(e,tp,eg,ep,ev,re,r,rp,chk)
 		and Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,nil):GetCount()>0
 end
 function s.rettg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local g=Group.CreateGroup()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g1=Duel.SelectTarget(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil,tp):GetFirst()
-	g:AddCard(g1)
-	local sg=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	sg:Sub(g)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,sg,#sg,0,0)
+	local tc=Duel.SelectTarget(tp,s.retfilter,tp,LOCATION_MZONE,0,1,1,nil,tp):GetFirst()
+	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,tc)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,#g,0,0)
 end
 function s.retop(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Group.CreateGroup()
-	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,nil)
+	local c=e:GetHandler()
 	local tg=Duel.GetTargetCards(e)
-	if tg:IsExists(Card.IsControler,1,nil,tp) or Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)>1 then
-		sg:Merge(g)
+	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_MZONE,0,tc)
+	if Duel.SendtoHand(g,tp,REASON_EFFECT)~=0 then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(1000)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e1)
 	end
-	sg:Sub(tg)
-	Duel.SendtoHand(sg,tp,REASON_EFFECT)
 end
