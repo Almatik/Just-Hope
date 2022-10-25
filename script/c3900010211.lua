@@ -64,7 +64,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local atk=c:GetPreviousAttackOnField()-500
+	local atk=c:GetPreviousAttackOnField()-2000
 	if Duel.SpecialSummonStep(c,0,tp,tp,false,false,c:GetPreviousPosition()) then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
